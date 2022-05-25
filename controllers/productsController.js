@@ -1,9 +1,6 @@
-const express = require('express');
 const productsService = require('../services/productsService');
 
-const router = express.Router();
-
-router.get('/', async (req, res, next) => {
+const getProducts = async (req, res, next) => {
   try {
     const products = await productsService.getProducts();
 
@@ -11,9 +8,9 @@ router.get('/', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-});
+};
 
-router.get('/:id', async (req, res, next) => {
+const getById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await productsService.getProducts(id);
@@ -23,6 +20,9 @@ router.get('/:id', async (req, res, next) => {
     error.status = 404;
     next(error);
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  getProducts,
+  getById,
+};
