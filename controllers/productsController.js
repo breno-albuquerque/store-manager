@@ -13,8 +13,8 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/:id', (req, res) => {
+/* router.get('/:id', (req, res) => {
 
-});
+}); */
 
 module.exports = router;
