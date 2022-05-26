@@ -1,10 +1,8 @@
 const connection = require('../db');
 
 async function getAll() {
-  const query = `SELECT p.quantity, s.date, sl.sale_id, sl.product_id
-  FROM StoreManager.products AS p
-  INNER JOIN sales_products AS sl
-  ON sl.product_id = p.id
+  const query = `SELECT sl.quantity, s.date, sl.sale_id, sl.product_id
+  FROM StoreManager.sales_products AS sl
   INNER JOIN sales AS s
   ON s.id = sl.sale_id`;
 
