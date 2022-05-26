@@ -120,7 +120,8 @@ describe('Adiciona produto no service', () => {
     });
 
     it('Uma excessão é lançada com a mensagem: "Product already exists"', async () => {
-       await expect(productsService.postProduct({name: productExample1.name, quantity: 1})).to.be.rejectedWith(new MyError, 'Product already exists');
+       await expect(productsService.postProduct({name: productExample1.name, quantity: 1}))
+        .to.be.rejectedWith(new MyError, 'Product already exists');
     });
   });
 });
