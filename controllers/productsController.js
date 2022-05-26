@@ -17,7 +17,6 @@ const getById = async (req, res, next) => {
 
     res.status(200).json(product);
   } catch (error) {
-    error.status = 404;
     next(error);
   }
 };

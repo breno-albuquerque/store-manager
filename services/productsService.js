@@ -1,4 +1,5 @@
 const productsModel = require('../models/productsModel');
+const MyError = require('../helpers/myError');
 //  const middlewares = require('../middlewares');
 
 async function getProducts(id = null) {
@@ -6,7 +7,7 @@ async function getProducts(id = null) {
     const productArr = await productsModel.getById(id);
 
     if (productArr.length === 0) {
-      throw new Error('Product not found');
+      throw new MyError('Product not found', 404);
     }
 
     return productArr[0];
