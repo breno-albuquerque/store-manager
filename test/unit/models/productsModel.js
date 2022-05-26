@@ -72,4 +72,25 @@ describe('Busca produto por id no model', () => {
       expect(product[0].id).to.equal(1);
     });
   });
-})
+});
+
+describe('Cadastra produtos no model', () => {
+  before(async () => {
+    const dataMock = [{ affectedRows: 1 }];
+
+    sinon.stub(connection, 'execute').resolves(dataMock);
+  });
+
+  after(async () => {
+    connection.execute.restore();
+  });
+
+  describe('Em caso de sucesso', () => {
+    it('Retorna um objeto com "affectedRows: 1"', () => {
+      const result = await productsModel.postProduct(productExample1);
+
+      expect(result).to.have.property('affectedRows');
+      expect(result.affectedRows).to.equal(1);
+    });
+  });
+});
