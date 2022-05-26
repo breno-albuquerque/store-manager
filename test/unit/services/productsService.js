@@ -19,7 +19,7 @@ const productExample2 = {
   quantity: 15
 }
 
-describe('Busca todos produtos', () => {
+describe('Busca todos produtos no service', () => {
   describe('Em caso de sucesso', () => {
     before(async () => {
       const modelMock = [productExample1, productExample2];
@@ -45,7 +45,7 @@ describe('Busca todos produtos', () => {
   });
 });
 
-describe('Busca produto por id', () => {
+describe('Busca produto por id no service', () => {
   describe('Em caso de id inválido', () => {
     before(async () => {
       const modelMock = [];

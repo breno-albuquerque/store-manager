@@ -16,12 +16,11 @@ const productExample2 = {
   quantity: 15
 }
 
-describe('Busca todos produtos', () => {
-
-  
+describe('Busca todos produtos no controller', () => {
   describe('Em caso de sucesso', () => {
     const response = {};
     const request = {};
+    const next = () => {}
 
     before(async () => {
       const serviceMock = [productExample1, productExample2];
@@ -36,7 +35,7 @@ describe('Busca todos produtos', () => {
     });
 
     it('É chamado o status com código 200', async () => {
-      await productsController.getProducts(request, response)
+      await productsController.getProducts(request, response, next)
 
       expect(response.status.calledWith(200)).to.be.true;
     });
@@ -44,6 +43,39 @@ describe('Busca todos produtos', () => {
       await productsController.getProducts(request, response);
 
       expect(response.json.calledWith([productExample1, productExample2])).to.be.true;
+    });
+  });
+});
+
+describe('Busca produto pelo id no controller', () => {
+  const response = {};
+  const request = {};
+  const next = () => {}
+
+  before(async () => {
+    const serviceMock = productExample1;
+
+    request.params = { id: 1 }
+    response.status = sinon.stub().returns(response);
+    response.json = sinon.stub().returns();
+
+    sinon.stub(productsService, 'getProducts').resolves(serviceMock)
+  });
+
+  after(async () => {
+    productsService.getProducts.restore();
+  });
+
+  describe('Em caso de id válido', () => {
+    it('É chamado status com o código 200', async () => {
+      await productsController.getById(request, response, next);
+
+      expect(response.status.calledWith(200)).to.be.true;
+    });
+    it('É chamado o json com um objeto', async () => {
+      await productsController.getById(request, response, next);
+
+      expect(response.json.calledWith(productExample1)).to.be.true;
     });
   });
 });

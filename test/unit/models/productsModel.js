@@ -16,7 +16,7 @@ const productExample2 = {
   quantity: 15
 }
 
-describe('Busca todos produtos', () => {
+describe('Busca todos produtos no model', () => {
   before(async () => {
     const dataMock = [[productExample1, productExample2]];
 
@@ -42,7 +42,7 @@ describe('Busca todos produtos', () => {
   });
 });
 
-describe('Busca produto por id', () => {
+describe('Busca produto por id no model', () => {
   before(async () => {
     const dataMock = [[productExample1]];
 
