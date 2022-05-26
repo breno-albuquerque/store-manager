@@ -76,3 +76,35 @@ describe('Busca venda por Id no model', () => {
     });
   });
 });
+
+describe('Busca venda/produto por Id no model', () => {
+  const saleProductExample1 = {
+    sale_id: 1,
+    product_id: 1,
+    quantity: 5
+  }
+
+  before(async () => {
+    const dataMock = [[saleProductExample1]];
+
+    sinon.stub(connection, 'execute').resolves(dataMock);
+  });
+
+  after(async () => {
+    connection.execute.restore();
+  });
+
+  describe('Em caso de sucesso', () => {
+    it('Retorna um array de objetos', async () => {
+      const result = await salesModel.getSalesProduct(1);
+
+      expect(result).to.be.an('array');
+      expect(result[0]).to.be.an('object');
+    });
+    it('Os objetos possuem as chaves corretas', async () => {
+      const result = await salesModel.getById(1);
+
+      expect(result[0]).to.include.all.keys('sale_id', 'product_id', 'quantity');
+    });
+  });
+});
