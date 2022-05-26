@@ -17,7 +17,7 @@ async function getById(id) {
 }
 
 async function postProduct(name, quantity) {
-  const query = 'INSERT INTO StoreManaget.products (name, quantity) VALUES (?, ?)';
+  const query = 'INSERT INTO StoreManager.products (name, quantity) VALUES (?, ?)';
 
   const [result] = await connection.execute(query, [name, quantity]);
 

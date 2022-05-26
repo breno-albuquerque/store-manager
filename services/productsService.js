@@ -17,6 +17,25 @@ async function getProducts(id = null) {
   return products;
 }
 
+async function postProduct({ name, quantity }) {
+  const products = await getProducts();
+
+  const exists = products.some((product) => product.name === name);
+
+  if (exists) {
+    throw new MyError('Product already exists', 409);
+  }
+
+  const { insertId } = await productsModel.postProduct(name, quantity);
+
+  return {
+    id: insertId,
+    name,
+    quantity,
+  };
+}
+
 module.exports = {
   getProducts,
+  postProduct,
 };

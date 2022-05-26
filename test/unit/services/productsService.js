@@ -81,3 +81,46 @@ describe('Busca produto por id no service', () => {
     })
   });
 });
+
+describe('Adiciona produto no service', () => {
+  describe('Em caso de sucesso', () => {
+
+    before(async () => {
+      const modelMock = { insertId: 1 };
+  
+      sinon.stub(productsModel, 'postProduct').resolves(modelMock);
+      sinon.stub(productsService, 'getProducts').resolves([productExample1, productExample2]);
+    });
+  
+    after(async () => {
+      productsModel.postProduct.restore();
+      productsService.getProducts.restore();
+    });
+
+    it('Retorna um objeto', async () => {
+      const result = await productsService.postProduct({name: 'Produto ainda não existente', quantity: 1});
+
+      expect(result).to.be.an('object');
+    });
+    it('O objeto possui as chaves corretas', async () => {
+      const result = await productsService.postProduct({name: 'Produto ainda não existente', quantity: 1});
+
+      expect(result).to.include.all.keys('id', 'name', 'quantity');
+    });
+  });
+
+  describe('No caso de ja existir um produto com o mesmo nome', () => {
+
+    before(async () => {  
+      sinon.stub(productsService, 'getProducts').resolves([productExample1, productExample2]);
+    });
+
+    after(async () => {
+      productsService.getProducts.restore();
+    });
+
+    it('Uma excessão é lançada com a mensagem: "Product already exists"', async () => {
+       await expect(productsService.postProduct({name: productExample1.name, quantity: 1})).to.be.rejectedWith(new MyError, 'Product already exists');
+    });
+  });
+});
