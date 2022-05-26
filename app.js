@@ -9,6 +9,8 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
+app.use(express.json());
+
 app.use(Router);
 
 app.use(middlewares.errorMiddleware);

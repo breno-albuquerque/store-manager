@@ -14,4 +14,4 @@ function validateProductQuantity(req, _res, next) {
   next();
 }
 
-module.export = validateProductQuantity;
+module.exports = validateProductQuantity;
