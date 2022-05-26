@@ -1,21 +1,44 @@
 const salesModel = require('../models/salesModel');
+const productsService = require('./productsService');
 
-async function getSales(id = null) {
-  if (id) {
-    const sale = await salesModel.getById(id);
+const formatSales = (sale) => sale.map((item) => ({
+    saleId: item.sale_id,
+    date: item.date,
+    productId: item.product_id,
+    quantity: item.quantity,
+  }));
 
-    if (sale.length === 0) {
-      throw new Error('Sale not found');
-    }
+async function getSales() {
+  const sales = await salesModel.getAll();
+  
+  const formatedSales = formatSales(sales);
 
-    return sale[0];
+  return formatedSales;
+}
+
+async function getSalesById(id) {
+  const sale = await salesModel.getById(id);
+
+  if (sale.length === 0) {
+    throw new Error('Sale not found');
   }
 
-  const sales = await salesModel.getAll();
+  const salesProducts = await salesModel.getSalesProduct(id);
+  const productsPromise = [];
+  salesProducts.forEach((item) => 
+    productsPromise.push(productsService.getProducts(item.product_id)));
+  const products = await Promise.all(productsPromise);
+
+  const sales = products.map((item) => ({
+    date: sale[0].date,
+    productId: item.id,
+    quantity: item.quantity,
+  }));
 
   return sales;
 }
 
 module.exports = {
   getSales,
+  getSalesById
 };
