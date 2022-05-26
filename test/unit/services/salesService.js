@@ -5,6 +5,7 @@ chai.use(require('chai-as-promised'));
 
 const salesService = require('../../../services/salesService');
 const salesModel = require('../../../models/salesModel');
+const MyError = require('../../../helpers/MyError');
 
 const { expect } = chai;
 
@@ -87,7 +88,7 @@ describe('Busca venda por id no service', () => {
     });
 
     it('Uma excessão deve ser lançada com a mensagem "Sale not found"', async () => {
-      await expect(salesService.getSalesById('Id inválido')).to.be.rejectedWith(Error, 'Sale not found');
+      await expect(salesService.getSalesById('Id inválido')).to.be.rejectedWith(new MyError, 'Sale not found');
     });
   });
 });

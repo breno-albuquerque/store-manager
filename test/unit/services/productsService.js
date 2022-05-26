@@ -6,6 +6,7 @@ chai.use(require('chai-as-promised'))
 const { expect } = chai;
 const productsService = require('../../../services/productsService');
 const productsModel = require('../../../models/productsModel');
+const MyError = require('../../../helpers/MyError');
 
 const productExample1 = {
   id: 1,
@@ -59,7 +60,7 @@ describe('Busca produto por id no service', () => {
     
     it('Uma excessão deve ser lançada com a mensagem "Product not found"', async () => {
       await expect(productsService.getProducts('id inválido'))
-        .to.be.rejectedWith(Error, 'Product not found');
+        .to.be.rejectedWith(new MyError, 'Product not found');
     });
   });
   describe('Em caso de id válido', () => {

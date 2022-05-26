@@ -76,21 +76,20 @@ describe('Busca produto por id no model', () => {
 
 describe('Cadastra produtos no model', () => {
   before(async () => {
-    const dataMock = [{ affectedRows: 1 }];
+    const dataMock = [{ insertId: productExample1.id }];
 
     sinon.stub(connection, 'execute').resolves(dataMock);
   });
 
   after(async () => {
-    connection.execute.restore();
+    connection.execute.restore('nome', 10);
   });
 
   describe('Em caso de sucesso', () => {
-    it('Retorna um objeto com "affectedRows: 1"', () => {
-      const result = await productsModel.postProduct(productExample1);
+    it('Retorna um objeto com a chave insertId e o valor 1', async () => {
+      const result = await productsModel.postProduct(productExample1.name, productExample1.quantity);
 
-      expect(result).to.have.property('affectedRows');
-      expect(result.affectedRows).to.equal(1);
+      expect(result.insertId).to.equal(1);
     });
   });
 });

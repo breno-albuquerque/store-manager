@@ -1,4 +1,5 @@
 const salesModel = require('../models/salesModel');
+const MyError = require('../helpers/MyError');
 
 const formatSales = (sale) => sale.map((item) => ({
     saleId: item.sale_id,
@@ -19,7 +20,7 @@ async function getSalesById(id) {
   const sale = await salesModel.getById(id);
 
   if (sale.length === 0) {
-    throw new Error('Sale not found');
+    throw new MyError('Sale not found', 404);
   }
 
   const salesProducts = await salesModel.getSalesProduct(id);
