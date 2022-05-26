@@ -40,5 +40,5 @@ async function getSalesById(id) {
 
 module.exports = {
   getSales,
-  getSalesById
+  getSalesById,
 };
