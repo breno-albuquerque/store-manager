@@ -79,3 +79,34 @@ describe('Busca produto pelo id no controller', () => {
     });
   });
 });
+
+describe('Adiciona produto no controller', () => {
+  const response = {};
+  const request = {};
+  const next = () => {}
+
+  before(async () => {
+    request.body = { name: 'Produto', quantity: 10 }
+    request.status = sinon.stub().returns(response);
+    request.json = sinon.stub().returns();
+
+    sinon.stub(productsService, 'postProduct').resolves({ id: 10, name: 'Produto', quantity: 10 });
+  });
+
+  after(async () => {
+    productsService.postProduct.restore();
+  });
+
+  describe('Em caso de sucesso', () => {
+    it('É chamado o status com o código 201', async () => {
+      await productsController.postProduct(request, response, next);
+
+      expect(response.status.calledWith(201)).to.be.true;
+    });
+    it('É chamado o json com um objeto', async () => {
+      await productsController.postProduct(request, response, next);
+
+      expect(response.json.calledWith({ id: 10, name: 'Produto', quantity: 10 })).to.be.true;
+    });
+  });
+});
