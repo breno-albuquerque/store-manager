@@ -21,7 +21,18 @@ const getById = async (req, res, next) => {
   }
 };
 
+const postProduct = async (req, res, next) => {
+  try {
+    const newProduct = await productsService.postProduct(req.body);
+
+    res.status(201).json(newProduct);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getProducts,
   getById,
+  postProduct,
 };

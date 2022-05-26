@@ -87,8 +87,8 @@ describe('Adiciona produto no controller', () => {
 
   before(async () => {
     request.body = { name: 'Produto', quantity: 10 }
-    request.status = sinon.stub().returns(response);
-    request.json = sinon.stub().returns();
+    response.status = sinon.stub().returns(response);
+    response.json = sinon.stub().returns();
 
     sinon.stub(productsService, 'postProduct').resolves({ id: 10, name: 'Produto', quantity: 10 });
   });
