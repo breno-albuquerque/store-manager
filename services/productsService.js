@@ -1,5 +1,5 @@
 const productsModel = require('../models/productsModel');
-const MyError = require('../helpers/myError');
+const MyError = require('../helpers/MyError');
 //  const middlewares = require('../middlewares');
 
 async function getProducts(id = null) {
