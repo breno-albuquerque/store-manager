@@ -1,5 +1,4 @@
 const salesModel = require('../models/salesModel');
-const productsService = require('./productsService');
 
 const formatSales = (sale) => sale.map((item) => ({
     saleId: item.sale_id,
@@ -24,14 +23,10 @@ async function getSalesById(id) {
   }
 
   const salesProducts = await salesModel.getSalesProduct(id);
-  const productsPromise = [];
-  salesProducts.forEach((item) => 
-    productsPromise.push(productsService.getProducts(item.product_id)));
-  const products = await Promise.all(productsPromise);
 
-  const sales = products.map((item) => ({
+  const sales = salesProducts.map((item) => ({
     date: sale[0].date,
-    productId: item.id,
+    productId: item.product_id,
     quantity: item.quantity,
   }));
 
