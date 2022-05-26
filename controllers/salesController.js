@@ -11,6 +11,20 @@ const getSales = async (req, res, next) => {
   }
 };
 
+const getById = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const sale = await salesService.getSales(id);
+
+    res.status(200).json(sale);
+  } catch (error) {
+    error.status = 404;
+    next(error);
+  }
+};
+
 module.exports = {
   getSales,
+  getById,
 };

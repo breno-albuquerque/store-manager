@@ -4,6 +4,7 @@ const router = express.Router();
 
 const salesController = require('../controllers/salesController');
 
-router.use('/', salesController.getSales);
+router.get('/', salesController.getSales);
+router.get('/:id', salesController.getById);
 
 module.exports = router;
