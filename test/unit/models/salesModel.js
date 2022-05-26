@@ -5,16 +5,16 @@ const salesModel = require('../../../models/salesModel');
 const connection = require('../../../db');
 
 const completeSale1 = {
-  saleId: 1,
+  sale_id: 1,
   date: "2021-09-09T04:54:29.000Z",
-  productId: 1,
+  product_id: 1,
   quantity: 2
 }
 
 const completeSale2 = {
-  saleId: 1,
+  sale_id: 1,
   date: "2021-09-09T04:54:54.000Z",
-  productId: 2,
+  product_id: 2,
   quantity: 2
 }
 
@@ -39,7 +39,7 @@ describe('Busca todas vendas no model', () => {
     it('O objeto possui as chaves corretas', async () => {
       const result = await salesModel.getAll();
 
-      expect(result[0]).to.include.all.keys('saleId', 'date', 'productId', 'quantity');
+      expect(result[0]).to.include.all.keys('sale_id', 'date', 'product_id', 'quantity');
     });
   });
 });
