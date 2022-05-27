@@ -145,4 +145,23 @@ describe('Adiciona vendas/produto no model', () => {
       expect(result.affectedRows).to.equal(1);
     });
   });
-})
+});
+
+describe('Atualiza uma venda no model', () => {
+  before(async () => {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+  });
+
+  after(async () => {
+    connection.execute.restore();
+  });
+
+  describe('Em caso de sucesso', () => {
+    it('Retorna um objeto com a chave affectedRows e o valor 1', async () => {
+      const result = await salesModel.updateSalesProduct(1);
+
+      expect(result).to.be.an('object');
+      expect(result.affectedRows).to.equal(1);
+    });
+  });
+});
