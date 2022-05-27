@@ -137,3 +137,40 @@ describe('Atualiza venda no service', () => {
     })
   });
 });
+
+describe('Atualiza venda no service', () => {
+  describe('Em caso de sucesso', () => {
+    before(async () => {
+      sinon.stub(salesModel, 'deleteSale').resolves({ affectedRows: 1 });
+      sinon.stub(salesModel, 'deleteSalesProduct').resolves({ affectedRows: 1 });
+    });
+  
+    after(async () => {
+      salesModel.deleteSalesProduct.restore();
+      salesModel.deleteSale.restore();
+    });
+
+    it('Retorna um objeto com a chave affectedRows e o valor 1', async () => {
+      const result = await salesModel.deleteSalesProduct(1);
+
+      expect(result).to.be.an('object');
+      expect(result.affectedRows).to.equal(1);
+    });
+  });
+
+  describe('Em caso de id inválido', () => {
+    before(async () => {
+      sinon.stub(salesModel, 'deleteSale').resolves({ affectedRows: 0 });
+      sinon.stub(salesModel, 'deleteSalesProduct').resolves({ affectedRows: 0 });
+    });
+  
+    after(async () => {
+      salesModel.deleteSalesProduct.restore();
+      salesModel.deleteSale.restore();
+    });
+
+    it('Uma excessão deve ser lançada com a mensagem "Sale not found"', async () => {
+      await expect(salesService.deleteSalesProduct(1)).to.be.rejectedWith(new MyError, 'Sale not found');
+    });
+  });
+});

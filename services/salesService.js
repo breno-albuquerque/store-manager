@@ -68,9 +68,22 @@ async function updateSalesProduct(id, [{ productId, quantity }]) {
   };
 }
 
+async function deleteSalesProduct(id) {
+  const result = await salesModel.deleteSale(id);
+  
+  if (result.affectedRows === 0) {
+    throw new MyError('Sale not found', 404);
+  }
+
+  await salesModel.deleteSalesProduct(id);
+
+  return result;
+}
+
 module.exports = {
   getSales,
   getSaleById,
   postSales,
   updateSalesProduct,
+  deleteSalesProduct,
 };
