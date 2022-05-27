@@ -38,11 +38,7 @@ async function postProduct({ name, quantity }) {
 async function updateProduct(id, { name, quantity }) {
   const products = await getProducts();
 
-  console.log('Produtos: ', products);
-
   const doesntExists = products.every((product) => product.id !== parseInt(id, 10));
-
-  console.log('doesntExists', doesntExists);
 
   if (doesntExists) {
     throw new MyError('Product not found', 404);

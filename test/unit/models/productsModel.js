@@ -111,6 +111,45 @@ describe('Atualiza um produto no model', () => {
 
       expect(result).to.be.an('object');
       expect(result.affectedRows).to.equal(1);
-    })
+    });
   });
 });
+
+describe('Deleta um produto no model', () => {
+  describe('Em caso de sucesso', () => {
+    before(async () => {
+      const dataMock = [{ affectedRows: 1 }];
+  
+      sinon.stub(connection, 'execute').resolves(dataMock);
+    });
+  
+    after(async () => {
+      connection.execute.restore();
+    });
+
+    it('Retorna um objeto com a chave affectedRows e o valor 1', async () => {
+      const result = await productsModel.deleteProduct(1);
+
+      expect(result).to.be.an.Arguments('object');
+      expect(result.affectedRows).to.equal(1);
+    });
+  });
+  describe('Em caso de id inválido', () => {
+    before(async () => {
+      const dataMock = [{ affectedRows: 0 }];
+  
+      sinon.stub(connection, 'execute').resolves(dataMock);
+    });
+  
+    after(async () => {
+      connection.execute.restore();
+    });
+
+    it('Retorna um objeto com a chave affectedRows e o valor 1', async () => {
+      const result = await productsModel.deleteProduct('Id inválido');
+
+      expect(result).to.be.an.Arguments('object');
+      expect(result.affectedRows).to.equal(0);
+    });
+  })
+})
