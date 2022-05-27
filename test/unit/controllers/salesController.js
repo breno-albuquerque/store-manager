@@ -130,3 +130,29 @@ describe('Atualiza venda no controller', () => {
     });
   });
 });
+
+describe('Atualiza venda no controller', () => {
+  const response = {};
+  const request = {};
+  const next = () => {}
+
+  before(async () => {
+    request.params = { id: 1 }
+    response.status = sinon.stub().returns(response);
+    response.json = sinon.stub().returns();
+
+    sinon.stub(salesService, 'deleteSalesProduct').resolves();
+  });
+
+  after(async () => {
+    salesService.deleteSalesProduct.restore();
+  });
+
+  describe('Em caso de sucesso', () => {
+    it('É chamado status com o código 204', async () => {
+      await salesController.deleteSalesProduct(request, response, next);
+
+      expect(response.status.calledWith(204)).to.be.true;
+    });
+  });
+});
