@@ -23,7 +23,18 @@ const getById = async (req, res, next) => {
   }
 };
 
+const postSale = async (req, res, next) => {
+  try {
+    const result = await salesService.postSales(req.body);
+
+    res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getSales,
   getById,
+  postSale,
 };

@@ -97,7 +97,7 @@ describe('Adiciona venda no controller', () => {
 
   describe('Em caso de sucesso', () => {
     it('É chamado status com o código 201', async () => {
-      await productsController.postSale(request, response, next);
+      await salesController.postSale(request, response, next);
 
       expect(response.status.calledWith(201)).to.be.true;
     });

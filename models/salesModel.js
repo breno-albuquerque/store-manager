@@ -28,7 +28,7 @@ async function getSalesProduct(id) {
 }
 
 async function postSales(date) {
-  const query = 'INSER INTO StoreManager.sales (date) VALUES (?)';
+  const query = 'INSERT INTO StoreManager.sales (date) VALUES (?)';
 
   const [result] = await connection.execute(query, [date]);
 
@@ -36,7 +36,7 @@ async function postSales(date) {
 }
 
 async function postSalesProduct(productId, saleId, quantity) {
-  const query = `INSERT INTO StoreManaget.sales_products (productId, saleId, quantity) 
+  const query = `INSERT INTO StoreManager.sales_products (product_id, sale_id, quantity) 
   VALUES (?, ?, ?)`;
 
   const [result] = await connection.execute(query, [productId, saleId, quantity]);

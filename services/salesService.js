@@ -35,7 +35,8 @@ async function getSaleById(id) {
 }
 
 async function postSales(saleArr) {
-  const date = `${new Date().toLocaleDateString('en-US')} ${new Date().toLocaleTimeString()}`;
+  const date = `${new Date().toLocaleDateString('zh-Hans-CN')}\n
+   ${new Date().toLocaleTimeString('en-GB')}`;
 
   const { insertId } = await salesModel.postSales(date);
 
