@@ -1,4 +1,5 @@
 const { expect } = require('chai');
+const { request } = require('express');
 const sinon = require('sinon');
 
 const productsController = require('../../../controllers/productsController');
@@ -103,10 +104,43 @@ describe('Adiciona produto no controller', () => {
 
       expect(response.status.calledWith(201)).to.be.true;
     });
-    it('É chamado o json com um objeto', async () => {
+    it('É chamado json com um objeto', async () => {
       await productsController.postProduct(request, response, next);
 
       expect(response.json.calledWith({ id: 10, name: 'Produto', quantity: 10 })).to.be.true;
     });
+  });
+});
+
+describe('Atualiza um produto no controller', () => {
+  const response = {};
+  const request = {};
+  const next = () => {}
+
+  before(async () => {
+    request.body = { name: 'Produto', quantity: 10 }
+    request.params = { id: 1 }
+    response.status = sinon.stub().returns(response);
+    response.json = sinon.stub().returns();
+
+    sinon.stub(productsService, 'updateProduct').resolves({ id: 1, name: 'novo-nome', quantity: 20 });
+  });
+
+  after(async () => {
+    productsService.updateProduct.restore();
+  });
+
+  describe('Em caso de sucesso', () => {
+    it('É chamado status com o código 200', async () => {
+      await productsController.updateProduct(request, response, next);
+
+      expect(response.status.calledWith(200)).to.be.true;
+    });
+
+    it('É chamado json com um objeto', async () => {
+      await productsController.updateProduct(request, response, next);
+
+      expect(response.json.calledWith({ id: 1, name: 'novo-nome', quantity: 20 })).to.be.true;
+    })
   });
 });
