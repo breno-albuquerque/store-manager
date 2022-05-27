@@ -1,6 +1,6 @@
 const connection = require('../db');
 
-async function getAll() {
+async function getAllSales() {
   const query = `SELECT sl.quantity, s.date, sl.sale_id, sl.product_id
   FROM StoreManager.sales_products AS sl
   INNER JOIN sales AS s
@@ -11,7 +11,7 @@ async function getAll() {
   return result;
 }
 
-async function getById(id) {
+async function getSaleById(id) {
   const query = 'SELECT * FROM StoreManager.sales WHERE id = ?';
 
   const [result] = await connection.execute(query, [id]);
@@ -28,7 +28,7 @@ async function getSalesProduct(id) {
 }
 
 module.exports = {
-  getAll,
-  getById,
+  getAllSales,
+  getSaleById,
   getSalesProduct,
 };

@@ -31,13 +31,13 @@ describe('Busca todas vendas no model', () => {
 
   describe('Em caso de sucesso', () => {
     it('Retorna um array de objetos', async () => {
-      const result = await salesModel.getAll();
+      const result = await salesModel.getAllSales();
 
       expect(result).to.be.an('array');
       expect(result[0]).to.be.an('object');
     });
     it('O objeto possui as chaves corretas', async () => {
-      const result = await salesModel.getAll();
+      const result = await salesModel.getAllSales();
 
       expect(result[0]).to.include.all.keys('sale_id', 'date', 'product_id', 'quantity');
     });
@@ -62,14 +62,14 @@ describe('Busca venda por Id no model', () => {
 
   describe('Em caso de sucesso', () => {
     it('Retorna um array com um único objeto', async () => {
-      const result = await salesModel.getById(1);
+      const result = await salesModel.getSaleById(1);
 
       expect(result).to.be.an('array');
       expect(result).to.have.length(1);
       expect(result[0]).to.be.an('object');
     });
     it('O objeto possui o id correto', async () => {
-      const result = await salesModel.getById(1);
+      const result = await salesModel.getSaleById(1);
 
       expect(result[0]).to.have.property('id');
       expect(result[0].id).to.equal(1);
@@ -102,9 +102,24 @@ describe('Busca venda/produto por Id no model', () => {
       expect(result[0]).to.be.an('object');
     });
     it('Os objetos possuem as chaves corretas', async () => {
-      const result = await salesModel.getById(1);
+      const result = await salesModel.getSaleById(1);
 
       expect(result[0]).to.include.all.keys('sale_id', 'product_id', 'quantity');
     });
   });
 });
+
+describe('Adiciona vendas no model', () => {
+  before(async () => {
+    sinon.stub(connection, 'execute').resolves(dataMock);
+  });
+
+  after(async () => {
+    connection.execute.restore();
+  });
+  describe('Em caso de sucesso', () => {
+
+  });
+});
+
+describe()

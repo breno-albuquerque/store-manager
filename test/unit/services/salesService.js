@@ -26,10 +26,10 @@ describe('Busca todas vendas no service', () => {
   before(async () => {
     const modelMock = [completeSale1, completeSale2];
 
-    sinon.stub(salesModel, 'getAll').resolves(modelMock);
+    sinon.stub(salesModel, 'getAllSales').resolves(modelMock);
   });
   after(async () => {
-    salesModel.getAll.restore();
+    salesModel.getAllSales.restore();
   });
 
   describe('Em caso de sucesso', () => {
@@ -57,12 +57,12 @@ describe('Busca venda por id no service', () => {
   
   describe('Em caso de id válido', () => {
     before(async () => {
-      sinon.stub(salesModel, 'getById').resolves([saleExample1]);
+      sinon.stub(salesModel, 'getSalesById').resolves([saleExample1]);
       sinon.stub(salesModel, 'getSalesProduct').resolves([saleProductExample1]);
     });
   
     after(async () => {
-      salesModel.getById.restore();
+      salesModel.getSalesById.restore();
       salesModel.getSalesProduct.restore();
     });
 
@@ -81,10 +81,10 @@ describe('Busca venda por id no service', () => {
 
   describe('Em caso de id inválido', () => {
     before(async () => {
-      sinon.stub(salesModel, 'getById').resolves([]);  
+      sinon.stub(salesModel, 'getSalesById').resolves([]);  
     });
     after(async () => {
-      salesModel.getById.restore();
+      salesModel.getSalesById.restore();
     });
 
     it('Uma excessão deve ser lançada com a mensagem "Sale not found"', async () => {

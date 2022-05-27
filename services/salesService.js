@@ -9,7 +9,7 @@ const formatSales = (sale) => sale.map((item) => ({
   }));
 
 async function getSales() {
-  const sales = await salesModel.getAll();
+  const sales = await salesModel.getAllSales();
   
   const formatedSales = formatSales(sales);
 
@@ -17,7 +17,7 @@ async function getSales() {
 }
 
 async function getSalesById(id) {
-  const sale = await salesModel.getById(id);
+  const sale = await salesModel.getSaleById(id);
 
   if (sale.length === 0) {
     throw new MyError('Sale not found', 404);
