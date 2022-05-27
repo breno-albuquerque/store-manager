@@ -134,6 +134,7 @@ describe('Deleta um produto no model', () => {
       expect(result.affectedRows).to.equal(1);
     });
   });
+  
   describe('Em caso de id inválido', () => {
     before(async () => {
       const dataMock = [{ affectedRows: 0 }];

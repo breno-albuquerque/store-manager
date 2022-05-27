@@ -163,3 +163,36 @@ describe('Atualiza um produto no service', () => {
     })
   });
 });
+
+describe('Deleta um produto no service', () => {
+  
+  describe('Em caso de sucesso', () => {
+    before(async () => {
+      sinon.stub(productsModel, 'deleteProduct').resolves({ affectedRows: 1 });
+    });
+  
+    after(async () => {
+      productsModel.deleteProduct.restore();
+    });
+    it ('Retorna um objeto com a chave affectedRows e o valor 1', async () => {
+      const result = await productsService.deleteProduct(1);
+
+      expect(result).to.be.an('object');
+      expect(result.affectedRows).to.equal(1);
+    });
+  });
+
+  describe('Em caso de id inválido', () => {
+    before(async () => {
+      sinon.stub(productsModel, 'deleteProduct').resolves({ affectedRows: 0 });
+    });
+  
+    after(async () => {
+      productsModel.deleteProduct.restore();
+    });
+
+    it('Uma excessão é lançada com a mensagem: "Product not found', async () => {
+      await expect(productsService.deleteProduct('id inválido')).to.be.rejectedWith(new MyError, 'Product not found');
+    });
+  });
+});
