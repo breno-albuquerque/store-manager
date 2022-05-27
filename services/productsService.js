@@ -25,6 +25,7 @@ async function postProduct({ name, quantity }) {
   if (exists) {
     throw new MyError('Product already exists', 409);
   }
+  console.log('here2222222222');
 
   const { insertId } = await productsModel.postProduct(name, quantity);
 

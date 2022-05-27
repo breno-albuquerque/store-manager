@@ -89,12 +89,12 @@ describe('Adiciona produto no service', () => {
       const modelMock = { insertId: 1 };
   
       sinon.stub(productsModel, 'postProduct').resolves(modelMock);
-      sinon.stub(productsService, 'getProducts').resolves([productExample1, productExample2]);
+      sinon.stub(productsModel, 'getAll').resolves([productExample1, productExample2]);
     });
   
     after(async () => {
       productsModel.postProduct.restore();
-      productsService.getProducts.restore();
+      productsModel.getAll.restore();
     });
 
     it('Retorna um objeto', async () => {
@@ -112,11 +112,11 @@ describe('Adiciona produto no service', () => {
   describe('No caso de ja existir um produto com o mesmo nome', () => {
 
     before(async () => {  
-      sinon.stub(productsService, 'getProducts').resolves([productExample1, productExample2]);
+      sinon.stub(productsModel, 'getAll').resolves([productExample1, productExample2]);
     });
 
     after(async () => {
-      productsService.getProducts.restore();
+      productsModel.getAll.restore();
     });
 
     it('Uma excessão é lançada com a mensagem: "Product already exists"', async () => {
