@@ -158,7 +158,7 @@ describe('Atualiza uma venda no model', () => {
 
   describe('Em caso de sucesso', () => {
     it('Retorna um objeto com a chave affectedRows e o valor 1', async () => {
-      const result = await salesModel.updateSalesProduct(1);
+      const result = await salesModel.updateSalesProduct(1, 1, 10);
 
       expect(result).to.be.an('object');
       expect(result.affectedRows).to.equal(1);

@@ -44,10 +44,19 @@ async function postSalesProduct(productId, saleId, quantity) {
   return result;
 }
 
+async function updateSalesProduct(saleId, productId, quantity) {
+  const query = 'UPDATE StoreManager.sales_product product_id=? quantity=? WHERE sale_id=?';
+
+  const [result] = await connection.execute(query, [productId, quantity, saleId]);
+
+  return result;
+}
+
 module.exports = {
   getAllSales,
   getSaleById,
   getSalesProduct,
   postSales,
   postSalesProduct,
+  updateSalesProduct,
 };
