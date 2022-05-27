@@ -92,3 +92,28 @@ describe('Busca venda por id no service', () => {
     });
   });
 });
+
+describe('Adiciona vendas no service', () => {
+  describe('Em caso de sucesso', () => {
+    before(async () => {
+      sinon.stub(salesModel, 'postSales').resolves({ insertId: 1 });
+      sinon.stub(salesModel, 'postSalesProduct').resolves({ affectedRows: 1 });
+    });
+  
+    after(async () => {
+      salesModel.postSales.restore();
+      salesModel.postSalesProduct.restore();
+    });
+    it('Retorna um objeto', async () => {
+      const result = await salesService.postSales([{ productId, quantity }]);
+
+      expect(result).to.be.an('object');
+    });
+    
+    it('O objeto possui as chaves corretas', async () => {
+      const result = await salesService.postSales([{ productId, quantity }]);
+
+      expect(result).to.include.all.keys('id', 'itemsSold');
+    });
+  });
+});
