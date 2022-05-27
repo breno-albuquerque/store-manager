@@ -104,6 +104,7 @@ describe('Adiciona vendas no service', () => {
       salesModel.postSales.restore();
       salesModel.postSalesProduct.restore();
     });
+
     it('Retorna um objeto', async () => {
       const result = await salesService.postSales([{ productId: 1, quantity: 10 }]);
 
@@ -115,5 +116,24 @@ describe('Adiciona vendas no service', () => {
 
       expect(result).to.include.all.keys('id', 'itemsSold');
     });
+  });
+});
+
+describe('Atualiza venda no service', () => {
+  before(async () => {
+    sinon.stub(salesModel, 'updateSalesProduct').resolves({ affectedRows: 1 });
+  });
+
+  after(async () => {
+    salesModel.updateSalesProduct.restore();
+  });
+
+  describe('Em caso de sucesso', () => {
+    it('Retorna um objeto com a chave affectedRows e o valor 1', async () => {
+      const result = await salesModel.updateSalesProduct(1, 1, 10);
+
+      expect(result).to.be.an('object');
+      expect(result.affectedRows).to.equal(1);
+    })
   });
 });
