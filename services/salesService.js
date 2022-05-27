@@ -34,7 +34,23 @@ async function getSaleById(id) {
   return sales;
 }
 
+async function postSales(saleArr) {
+  const date = `${new Date().toLocaleDateString('en-US')} ${new Date().toLocaleTimeString()}`;
+
+  const { insertId } = await salesModel.postSales(date);
+
+  saleArr.forEach(async (e) => {
+    await salesModel.postSalesProduct(e.productId, insertId, e.quantity);
+  });
+
+  return {
+    id: insertId,
+    itemsSold: saleArr,
+  };
+}
+
 module.exports = {
   getSales,
   getSaleById,
+  postSales,
 };

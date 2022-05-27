@@ -105,13 +105,13 @@ describe('Adiciona vendas no service', () => {
       salesModel.postSalesProduct.restore();
     });
     it('Retorna um objeto', async () => {
-      const result = await salesService.postSales([{ productId, quantity }]);
+      const result = await salesService.postSales([{ productId: 1, quantity: 10 }]);
 
       expect(result).to.be.an('object');
     });
     
     it('O objeto possui as chaves corretas', async () => {
-      const result = await salesService.postSales([{ productId, quantity }]);
+      const result = await salesService.postSales([{ productId: 1, quantity: 10 }]);
 
       expect(result).to.include.all.keys('id', 'itemsSold');
     });
