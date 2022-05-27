@@ -16,7 +16,7 @@ async function getSales() {
   return formatedSales;
 }
 
-async function getSalesById(id) {
+async function getSaleById(id) {
   const sale = await salesModel.getSaleById(id);
 
   if (sale.length === 0) {
@@ -36,5 +36,5 @@ async function getSalesById(id) {
 
 module.exports = {
   getSales,
-  getSalesById,
+  getSaleById,
 };

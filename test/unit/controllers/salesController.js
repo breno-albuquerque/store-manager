@@ -57,11 +57,11 @@ describe('Busca venda pelo id no controller', () => {
     response.status = sinon.stub().returns(response);
     response.json = sinon.stub().returns();
 
-    sinon.stub(salesService, 'getSalesById').resolves(serviceMock)
+    sinon.stub(salesService, 'getSaleById').resolves(serviceMock)
   });
 
   after(async () => {
-    salesService.getSalesById.restore();
+    salesService.getSaleById.restore();
   });
 
   describe('Em caso de id válido', () => {

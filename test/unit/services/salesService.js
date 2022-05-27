@@ -57,23 +57,23 @@ describe('Busca venda por id no service', () => {
   
   describe('Em caso de id válido', () => {
     before(async () => {
-      sinon.stub(salesModel, 'getSalesById').resolves([saleExample1]);
+      sinon.stub(salesModel, 'getSaleById').resolves([saleExample1]);
       sinon.stub(salesModel, 'getSalesProduct').resolves([saleProductExample1]);
     });
   
     after(async () => {
-      salesModel.getSalesById.restore();
+      salesModel.getSaleById.restore();
       salesModel.getSalesProduct.restore();
     });
 
     it('Retorna um array de objetos', async () => {
-      const result = await salesService.getSalesById(1);
+      const result = await salesService.getSaleById(1);
 
       expect(result).to.be.an('array');
       expect(result[0]).to.be.an('object');
     });
     it('Os objetos possuem as chaves corretas', async () => {
-      const result = await salesService.getSalesById(1);
+      const result = await salesService.getSaleById(1);
 
       expect(result[0]).to.include.all.keys('date', 'productId', 'quantity');
     });
@@ -81,14 +81,14 @@ describe('Busca venda por id no service', () => {
 
   describe('Em caso de id inválido', () => {
     before(async () => {
-      sinon.stub(salesModel, 'getSalesById').resolves([]);  
+      sinon.stub(salesModel, 'getSaleById').resolves([]);  
     });
     after(async () => {
-      salesModel.getSalesById.restore();
+      salesModel.getSaleById.restore();
     });
 
     it('Uma excessão deve ser lançada com a mensagem "Sale not found"', async () => {
-      await expect(salesService.getSalesById('Id inválido')).to.be.rejectedWith(new MyError, 'Sale not found');
+      await expect(salesService.getSaleById('Id inválido')).to.be.rejectedWith(new MyError, 'Sale not found');
     });
   });
 });
