@@ -138,7 +138,7 @@ describe('Atualiza venda no service', () => {
   });
 });
 
-describe('Atualiza venda no service', () => {
+describe('Deleta venda no service', () => {
   describe('Em caso de sucesso', () => {
     before(async () => {
       sinon.stub(salesModel, 'deleteSale').resolves({ affectedRows: 1 });

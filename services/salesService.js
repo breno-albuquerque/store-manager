@@ -56,13 +56,13 @@ async function postSales(saleArr) {
 }
 
 async function updateSalesProduct(id, [{ productId, quantity }]) {
-  const result = await salesModel.updateSalesProduct(id, productId, quantity);
+  const sale = await getSaleById(id);
+  await salesModel.updateSalesProduct(id, productId, quantity);
 
-  if (result.affectedRows === 0) {
-    throw new MyError('Sale not found', 404);
-  }
-
-  await productService.updateProductBySale(productId, quantity);
+  const prevQuant = sale.reduce((acc, curr) => acc + curr, 0);
+  const quantDiff = prevQuant - quantity;
+  if (quantDiff < 0) await productService.updateProductBySale(productId, quantity * -1);
+  if (quantDiff > 0) await productService.updateProductBySale(productId, quantity, true);
 
   return {
     saleId: 1,
