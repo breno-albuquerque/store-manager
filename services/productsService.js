@@ -53,8 +53,19 @@ async function updateProduct(id, { name, quantity }) {
   };
 }
 
+async function deleteProduct(id) {
+  const result = await productsModel.deleteProduct(id);
+
+  if (result.affectedRows === 0) {
+    throw new MyError('Product not found', 404);
+  }
+
+  return result;
+}
+
 module.exports = {
   getProducts,
   postProduct,
   updateProduct,
+  deleteProduct,
 };
