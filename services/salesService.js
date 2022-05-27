@@ -50,8 +50,27 @@ async function postSales(saleArr) {
   };
 }
 
+async function updateSalesProduct(id, [{ productId, quantity }]) {
+  const result = await salesModel.updateSalesProduct(id, productId, quantity);
+
+  if (result.affectedRows === 0) {
+    throw new MyError('Sale not found', 404);
+  }
+
+  return {
+    saleId: 1,
+    itemUpdated: [
+      {
+        productId,
+        quantity,
+      },
+    ],
+  };
+}
+
 module.exports = {
   getSales,
   getSaleById,
   postSales,
+  updateSalesProduct,
 };
