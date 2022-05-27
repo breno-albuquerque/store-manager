@@ -130,7 +130,7 @@ describe('Deleta um produto no model', () => {
     it('Retorna um objeto com a chave affectedRows e o valor 1', async () => {
       const result = await productsModel.deleteProduct(1);
 
-      expect(result).to.be.an.Arguments('object');
+      expect(result).to.be.an('object');
       expect(result.affectedRows).to.equal(1);
     });
   });
@@ -148,7 +148,7 @@ describe('Deleta um produto no model', () => {
     it('Retorna um objeto com a chave affectedRows e o valor 1', async () => {
       const result = await productsModel.deleteProduct('Id inválido');
 
-      expect(result).to.be.an.Arguments('object');
+      expect(result).to.be.an('object');
       expect(result.affectedRows).to.equal(0);
     });
   })
