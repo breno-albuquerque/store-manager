@@ -102,4 +102,31 @@ describe('Adiciona venda no controller', () => {
       expect(response.status.calledWith(201)).to.be.true;
     });
   });
-})
+});
+
+describe('Atualiza venda no controller', () => {
+  const response = {};
+  const request = {};
+  const next = () => {}
+
+  before(async () => {
+    request.body =[ { productId: 1, quantity: 3 } ];
+    request.params = { id: 1 }
+    response.status = sinon.stub().returns(response);
+    response.json = sinon.stub().returns();
+
+    sinon.stub(salesService, 'updateSalesProduct').resolves();
+  });
+
+  after(async () => {
+    salesService.updateSalesProduct.restore();
+  });
+
+  describe('Em caso de sucesso', () => {
+    it('É chamado status com o código 200', async () => {
+      await salesController.updateSalesProduct(request, response, next);
+
+      expect(response.status.calledWith(200)).to.be.true;
+    });
+  });
+});
