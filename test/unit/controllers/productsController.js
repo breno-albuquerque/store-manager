@@ -159,7 +159,7 @@ describe('Delete um produto no controller', () => {
   });
 
   after(async () => {
-    productsService.updateProduct.restore();
+    productsService.deleteProduct.restore();
   });
 
   describe('Em caso de sucesso', () => {
