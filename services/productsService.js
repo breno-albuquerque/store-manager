@@ -53,6 +53,15 @@ async function updateProduct(id, { name, quantity }) {
   };
 }
 
+async function updateProductBySale(productId, quantity, add = false) {
+  const product = await getProducts(productId);
+
+  if (add) product.quantity += quantity;
+  else product.quantity -= quantity;
+
+  await productsModel.updateProduct(productId, product.name, product.quantity);
+}
+
 async function deleteProduct(id) {
   const result = await productsModel.deleteProduct(id);
 
@@ -68,4 +77,5 @@ module.exports = {
   postProduct,
   updateProduct,
   deleteProduct,
+  updateProductBySale,
 };

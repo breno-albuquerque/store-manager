@@ -1,5 +1,6 @@
 const salesModel = require('../models/salesModel');
 const MyError = require('../helpers/MyError');
+const productService = require('./productsService');
 
 const formatSales = (sale) => sale.map((item) => ({
     saleId: item.sale_id,
@@ -44,6 +45,10 @@ async function postSales(saleArr) {
     await salesModel.postSalesProduct(e.productId, insertId, e.quantity);
   });
 
+  saleArr.forEach(async (e) => {
+    await productService.updateProductBySale(e.productId, e.quantity);
+  });
+
   return {
     id: insertId,
     itemsSold: saleArr,
@@ -57,6 +62,8 @@ async function updateSalesProduct(id, [{ productId, quantity }]) {
     throw new MyError('Sale not found', 404);
   }
 
+  await productService.updateProductBySale(productId, quantity);
+
   return {
     saleId: 1,
     itemUpdated: [
@@ -69,12 +76,13 @@ async function updateSalesProduct(id, [{ productId, quantity }]) {
 }
 
 async function deleteSalesProduct(id) {
+  const sales = await getSaleById(id);
+  sales.forEach(async (sale) => {
+    await productService.updateProductBySale(sale.productId, sale.quantity, true);
+  });
+  
   const result = await salesModel.deleteSale(id);
   
-  if (result.affectedRows === 0) {
-    throw new MyError('Sale not found', 404);
-  }
-
   await salesModel.deleteSalesProduct(id);
 
   return result;

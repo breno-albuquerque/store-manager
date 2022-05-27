@@ -160,13 +160,11 @@ describe('Atualiza venda no service', () => {
 
   describe('Em caso de id inválido', () => {
     before(async () => {
-      sinon.stub(salesModel, 'deleteSale').resolves({ affectedRows: 0 });
-      sinon.stub(salesModel, 'deleteSalesProduct').resolves({ affectedRows: 0 });
+      sinon.stub(salesModel, 'getSaleById').resolves([]);;
     });
   
     after(async () => {
-      salesModel.deleteSalesProduct.restore();
-      salesModel.deleteSale.restore();
+      salesModel.getSaleById.restore();
     });
 
     it('Uma excessão deve ser lançada com a mensagem "Sale not found"', async () => {
