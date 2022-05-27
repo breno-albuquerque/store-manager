@@ -77,3 +77,29 @@ describe('Busca venda pelo id no controller', () => {
     });
   });
 });
+
+describe('Adiciona venda no controller', () => {
+  const response = {};
+  const request = {};
+  const next = () => {}
+
+  before(async () => {
+    request.body =[ { productId: 1, quantity: 3 } ];
+    response.status = sinon.stub().returns(response);
+    response.json = sinon.stub().returns();
+
+    sinon.stub(salesService, 'postSales').resolves({ affectedRows: 1 });
+  });
+
+  after(async () => {
+    salesService.postSales.restore();
+  });
+
+  describe('Em caso de sucesso', () => {
+    it('É chamado status com o código 201', async () => {
+      await productsController.postSale(request, response, next);
+
+      expect(response.status.calledWith(201)).to.be.true;
+    });
+  });
+})
