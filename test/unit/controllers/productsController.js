@@ -144,3 +144,29 @@ describe('Atualiza um produto no controller', () => {
     })
   });
 });
+
+describe('Delete um produto no controller', () => {
+  const response = {};
+  const request = {};
+  const next = () => {}
+
+  before(async () => {
+    request.params = { id: 1 }
+    response.status = sinon.stub().returns(response);
+    response.json = sinon.stub().returns();
+
+    sinon.stub(productsService, 'deleteProduct').resolves({ affectedRows: 1 });
+  });
+
+  after(async () => {
+    productsService.updateProduct.restore();
+  });
+
+  describe('Em caso de sucesso', () => {
+    it('É chamado status com o código 204', async () => {
+      await productsController.deleteProduct(request, response, next);
+
+      expect(response.status.calledWith(204)).to.be.true;
+    });
+  });
+});
