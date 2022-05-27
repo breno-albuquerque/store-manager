@@ -125,3 +125,41 @@ describe('Adiciona produto no service', () => {
     });
   });
 });
+
+describe('Atualiza um produto no service', () => {  
+  describe('Em caso de id válido', () => {
+    before(async () => {
+      sinon.stub(productsModel, 'getAll').resolves([productExample1, productExample2]);
+      sinon.stub(productsModel, 'updateProduct').resolves([{ affectedRows: 1 }]);
+    });
+  
+    after(async () => {
+      productsModel.getAll.restore();
+      productsModel.updateProduct.restore();
+    });
+
+    it('Retorna um objeto com as chaves corretas', async () => {
+      const result = await productsService.updateProduct(1, { name: 'novo-nome', quantity: 20 });
+
+      expect(result).to.be.an('object');
+      expect(result).to.include.all.keys('id', 'name', 'quantity');
+    });
+
+  });
+
+  describe('Em case de id inválido', () => {
+    before(async () => {
+      sinon.stub(productsModel, 'getAll').resolves([productExample1, productExample2]);
+      sinon.stub(productsModel, 'updateProduct').resolves([{ affectedRows: 1 }]);
+    });
+  
+    after(async () => {
+      productsModel.getAll.restore();
+      productsModel.updateProduct.restore();
+    });
+
+    it('Uma excessão é lançada com a mensagem: "Product not found"', async () => {
+      await expect(productsService.updateProduct('id inválido', {name: 'novo-nome', quantity: 15})).to.be.rejectedWith(new MyError, 'Product not found');
+    })
+  });
+});

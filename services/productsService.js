@@ -35,7 +35,26 @@ async function postProduct({ name, quantity }) {
   };
 }
 
+async function updateProduct(id, { name, quantity }) {
+  const products = await getProducts();
+
+  const doesntExists = products.every((product) => product.id !== parseInt(id, 10));
+
+  if (doesntExists) {
+    throw new MyError('Product not found', 404);
+  }
+
+  await productsModel.updateProduct(id, name, quantity);
+
+  return {
+    id,
+    name,
+    quantity,
+  };
+}
+
 module.exports = {
   getProducts,
   postProduct,
+  updateProduct,
 };
