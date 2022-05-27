@@ -165,3 +165,41 @@ describe('Atualiza uma venda no model', () => {
     });
   });
 });
+
+describe('Deleta uma venda no model', () => {
+  before(async () => {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+  });
+
+  after(async () => {
+    connection.execute.restore();
+  });
+
+  describe('Em caso de sucesso', () => {
+    it('Retorna um objeto com a chave affectedRows e o valor 1', async () => {
+      const result = await salesModel.deleteSale(1);
+
+      expect(result).to.be.an('object');
+      expect(result.affectedRows).to.equal(1);
+    });
+  });
+})
+
+describe('Deleta uma venda/produto no model', () => {
+  before(async () => {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+  });
+
+  after(async () => {
+    connection.execute.restore();
+  });
+
+  describe('Em caso de sucesso', () => {
+    it('Retorna um objeto com a chave affectedRows e o valor 1', async () => {
+      const result = await salesModel.deleteSalesProduct(1);
+
+      expect(result).to.be.an('object');
+      expect(result.affectedRows).to.equal(1);
+    });
+  });
+})
