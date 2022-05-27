@@ -12,5 +12,6 @@ const {
 router.get('/', productController.getProducts);
 router.get('/:id', productController.getById);
 router.post('/', validateProductName, validateProductQuantity, productController.postProduct);
+router.put('/:id', validateProductName, validateProductQuantity, productController.updateProduct);
 
 module.exports = router;
