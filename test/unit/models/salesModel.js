@@ -111,15 +111,38 @@ describe('Busca venda/produto por Id no model', () => {
 
 describe('Adiciona vendas no model', () => {
   before(async () => {
-    sinon.stub(connection, 'execute').resolves(dataMock);
+    sinon.stub(connection, 'execute').resolves([{ insertId: 1 }]);
   });
 
   after(async () => {
     connection.execute.restore();
   });
-  describe('Em caso de sucesso', () => {
 
+  describe('Em caso de sucesso', () => {
+    it('Retorna um objeto com a chave insertId e o valor 1', async () => {
+      const result = await salesModel.postSales("2021-09-09T04:54:29.000Z")
+
+      expect(result).to.be.an('object');
+      expect(result.insertId).to.equal(1);
+    });
   });
 });
 
-describe()
+describe('Adiciona vendas/produto no model', () => {
+  before(async () => {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+  });
+
+  after(async () => {
+    connection.execute.restore();
+  });
+
+  describe('Em caso de sucesso', () => {
+    it('Retorna um objeto com a chave affectedRows e o valor 1', async () => {
+      const result = await salesModel.postSalesProduct(1, 1, 10);
+
+      expect(result).to.be.an('object');
+      expect(result.affectedRows).to.equal(1);
+    });
+  });
+})
