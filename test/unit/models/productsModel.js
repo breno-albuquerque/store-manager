@@ -82,7 +82,7 @@ describe('Cadastra produtos no model', () => {
   });
 
   after(async () => {
-    connection.execute.restore('nome', 10);
+    connection.execute.restore();
   });
 
   describe('Em caso de sucesso', () => {
@@ -91,5 +91,26 @@ describe('Cadastra produtos no model', () => {
 
       expect(result.insertId).to.equal(1);
     });
+  });
+});
+
+describe('Atualiza um produto no model', () => {
+  before(async () => {
+    const dataMock = [{ affectedRows: 1 }];
+
+    sinon.stub(connection, 'execute').resolves(dataMock);
+  });
+
+  after(async () => {
+    connection.execute.restore();
+  });
+
+  describe('Em caso de sucesso', () => {
+    it('Retorna um objeto com a chave affectedRows e o valor 1', async () => {
+      const result = await productsModel.updateProduct(1, 'nome-produto', 10);
+
+      expect(result).to.be.an('object');
+      expect(result.affectedRows).to.equal(1);
+    })
   });
 });
