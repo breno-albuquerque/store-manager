@@ -6,6 +6,7 @@ chai.use(require('chai-as-promised'));
 const salesService = require('../../../services/salesService');
 const salesModel = require('../../../models/salesModel');
 const MyError = require('../../../helpers/MyError');
+const productModel = require('../../../models/productsModel');
 
 const { expect } = chai;
 
@@ -98,21 +99,23 @@ describe('Adiciona vendas no service', () => {
     before(async () => {
       sinon.stub(salesModel, 'postSales').resolves({ insertId: 1 });
       sinon.stub(salesModel, 'postSalesProduct').resolves({ affectedRows: 1 });
+      sinon.stub(productModel, 'getAll').resolves([{ id: 1, quantity: 20 }])
     });
   
     after(async () => {
       salesModel.postSales.restore();
       salesModel.postSalesProduct.restore();
+      productModel.getAll.restore();
     });
 
     it('Retorna um objeto', async () => {
-      const result = await salesService.postSales([{ productId: 1, quantity: 10 }]);
+      const result = await salesService.postSales([{ productId: 1, quantity: 2 }]);
 
       expect(result).to.be.an('object');
     });
     
     it('O objeto possui as chaves corretas', async () => {
-      const result = await salesService.postSales([{ productId: 1, quantity: 10 }]);
+      const result = await salesService.postSales([{ productId: 1, quantity: 2 }]);
 
       expect(result).to.include.all.keys('id', 'itemsSold');
     });

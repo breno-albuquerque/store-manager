@@ -9,6 +9,13 @@ const formatSales = (sale) => sale.map((item) => ({
     quantity: item.quantity,
   }));
 
+const verifyProductQuantity = (products, sale) => {
+  const currProduct = products.find((product) => product.id === sale.productId);
+  if (currProduct.quantity < sale.quantity) {
+    throw new MyError('Such amount is not permitted to sell', 422);
+  }
+};
+
 async function getSales() {
   const sales = await salesModel.getAllSales();
   
@@ -36,6 +43,11 @@ async function getSaleById(id) {
 }
 
 async function postSales(saleArr) {
+  const products = await productService.getProducts();
+  saleArr.forEach((sale) => verifyProductQuantity(products, sale));
+
+  console.log(products);
+
   const date = `${new Date().toLocaleDateString('zh-Hans-CN')}\n
    ${new Date().toLocaleTimeString('en-GB')}`;
 
