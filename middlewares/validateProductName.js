@@ -3,10 +3,7 @@ const MyError = require('../helpers/MyError');
 function validateProductName(req, _res, next) {
   const { name } = req.body;
 
-  console.log(name);
-
   if (!name) {
-    console.log('aqui');
     throw new MyError('"name" is required', 400);
   }
 

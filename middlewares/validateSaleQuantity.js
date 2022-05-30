@@ -3,8 +3,6 @@ const MyError = require('../helpers/MyError');
 function validateSaleQuantity(req, _res, next) {
   const [{ quantity }] = req.body;
 
-  console.log(quantity);
-
   if (!quantity) {
     throw new MyError('"quantity" is required', 400);
   }
