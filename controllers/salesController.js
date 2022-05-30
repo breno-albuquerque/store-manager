@@ -1,5 +1,4 @@
 const salesService = require('../services/salesService');
-//  const middlewares = require('../middlewares');
 
 const getSales = async (req, res, next) => {
   try {

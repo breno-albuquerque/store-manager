@@ -13,6 +13,7 @@ function formatSales(sale) {
 
 function verifyProductQuantity(products, sale) {
   const currProduct = products.find((product) => product.id === sale.productId);
+  
   if (currProduct.quantity < sale.quantity) {
     throw new MyError('Such amount is not permitted to sell', 422);
   }
@@ -27,9 +28,7 @@ const getSales = async () => {
 const getSaleById = async (id) => {
   const sale = await salesModel.getSaleById(id);
 
-  if (sale.length === 0) {
-    throw new MyError('Sale not found', 404);
-  }
+  if (sale.length === 0) throw new MyError('Sale not found', 404);
 
   const salesProducts = await salesModel.getSalesProduct(id);
 
