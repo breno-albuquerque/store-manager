@@ -1,3 +1,5 @@
+//  Configuração do restore desenvolvida pela equipe da @Trybe.
+
 const Importer = require("mysql-import");
 require("dotenv").config();
 
