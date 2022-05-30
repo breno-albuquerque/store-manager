@@ -65,16 +65,18 @@ const postSales = async (saleArr) => {
 };
 
 const updateSalesProduct = async (id, [{ productId, quantity }]) => {
-  const sale = await getSaleById(id);
+  const prevSale = await getSaleById(id);
+  const prevProductData = prevSale.find((item) => item.productId === productId);
+
   await salesModel.updateSalesProduct(id, productId, quantity);
 
-  const prevQuant = sale.reduce((acc, curr) => acc + curr.quantity, 0);
+  const prevQuant = prevProductData.quantity;
   const quantDiff = prevQuant - quantity;
-  if (quantDiff < 0) await productService.updateProductBySale(productId, quantity * -1);
-  if (quantDiff > 0) await productService.updateProductBySale(productId, quantity, true);
+  if (quantDiff < 0) await productService.updateProductBySale(productId, quantDiff * -1);
+  if (quantDiff > 0) await productService.updateProductBySale(productId, quantDiff, true);
 
   return {
-    saleId: 1,
+    saleId: id,
     itemUpdated: [
       {
         productId,
@@ -86,6 +88,7 @@ const updateSalesProduct = async (id, [{ productId, quantity }]) => {
 
 const deleteSalesProduct = async (id) => {
   const sales = await getSaleById(id);
+
   sales.forEach(async (sale) => {
     await productService.updateProductBySale(sale.productId, sale.quantity, true);
   });
