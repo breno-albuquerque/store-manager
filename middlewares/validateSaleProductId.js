@@ -1,11 +1,13 @@
 const MyError = require('../helpers/MyError');
 
 function validateSaleProductId(req, _res, next) {
-  const { productId } = req.body;
+  req.body.forEach((item) => {
+    const { productId } = item;
 
-  if (!productId) {
-    throw new MyError('"productId" is required', 400);
-  }
+    if (productId === undefined) {
+      throw new MyError('"productId" is required', 400);
+    }
+  });
 
   next();
 }
