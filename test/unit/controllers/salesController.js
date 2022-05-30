@@ -23,7 +23,6 @@ const salesProductExample = {
 
 describe('Busca todas vendas no controller', () => {
   describe('Em caso de sucesso', () => {
-
     before(async () => {
       const serviceMock = [completeSale];
   
