@@ -2,29 +2,29 @@ const salesModel = require('../models/salesModel');
 const MyError = require('../helpers/MyError');
 const productService = require('./productsService');
 
-const formatSales = (sale) => sale.map((item) => ({
+function formatSales(sale) {
+  return sale.map((item) => ({
     saleId: item.sale_id,
     date: item.date,
     productId: item.product_id,
     quantity: item.quantity,
   }));
+}
 
-const verifyProductQuantity = (products, sale) => {
+function verifyProductQuantity(products, sale) {
   const currProduct = products.find((product) => product.id === sale.productId);
   if (currProduct.quantity < sale.quantity) {
     throw new MyError('Such amount is not permitted to sell', 422);
   }
-};
-
-async function getSales() {
-  const sales = await salesModel.getAllSales();
-  
-  const formatedSales = formatSales(sales);
-
-  return formatedSales;
 }
 
-async function getSaleById(id) {
+const getSales = async () => {
+  const sales = await salesModel.getAllSales();
+  const formatedSales = formatSales(sales);
+  return formatedSales;
+};
+
+const getSaleById = async (id) => {
   const sale = await salesModel.getSaleById(id);
 
   if (sale.length === 0) {
@@ -40,13 +40,11 @@ async function getSaleById(id) {
   }));
 
   return sales;
-}
+};
 
-async function postSales(saleArr) {
+const postSales = async (saleArr) => {
   const products = await productService.getProducts();
   saleArr.forEach((sale) => verifyProductQuantity(products, sale));
-
-  console.log(products);
 
   const date = `${new Date().toLocaleDateString('zh-Hans-CN')}\n
    ${new Date().toLocaleTimeString('en-GB')}`;
@@ -65,13 +63,13 @@ async function postSales(saleArr) {
     id: insertId,
     itemsSold: saleArr,
   };
-}
+};
 
-async function updateSalesProduct(id, [{ productId, quantity }]) {
+const updateSalesProduct = async (id, [{ productId, quantity }]) => {
   const sale = await getSaleById(id);
   await salesModel.updateSalesProduct(id, productId, quantity);
 
-  const prevQuant = sale.reduce((acc, curr) => acc + curr, 0);
+  const prevQuant = sale.reduce((acc, curr) => acc + curr.quantity, 0);
   const quantDiff = prevQuant - quantity;
   if (quantDiff < 0) await productService.updateProductBySale(productId, quantity * -1);
   if (quantDiff > 0) await productService.updateProductBySale(productId, quantity, true);
@@ -85,9 +83,9 @@ async function updateSalesProduct(id, [{ productId, quantity }]) {
       },
     ],
   };
-}
+};
 
-async function deleteSalesProduct(id) {
+const deleteSalesProduct = async (id) => {
   const sales = await getSaleById(id);
   sales.forEach(async (sale) => {
     await productService.updateProductBySale(sale.productId, sale.quantity, true);
@@ -98,7 +96,7 @@ async function deleteSalesProduct(id) {
   await salesModel.deleteSalesProduct(id);
 
   return result;
-}
+};
 
 module.exports = {
   getSales,

@@ -1,8 +1,7 @@
 const productsModel = require('../models/productsModel');
 const MyError = require('../helpers/MyError');
-//  const middlewares = require('../middlewares');
 
-async function getProducts(id = null) {
+const getProducts = async (id = null) => {
   if (id) {
     const productArr = await productsModel.getById(id);
 
@@ -15,9 +14,9 @@ async function getProducts(id = null) {
   
   const products = await productsModel.getAll();
   return products;
-}
+};
 
-async function postProduct({ name, quantity }) {
+const postProduct = async ({ name, quantity }) => {
   const products = await getProducts();
 
   const exists = products.some((product) => product.name === name);
@@ -33,9 +32,9 @@ async function postProduct({ name, quantity }) {
     name,
     quantity,
   };
-}
+};
 
-async function updateProduct(id, { name, quantity }) {
+const updateProduct = async (id, { name, quantity }) => {
   const products = await getProducts();
 
   const doesntExists = products.every((product) => product.id !== parseInt(id, 10));
@@ -51,16 +50,16 @@ async function updateProduct(id, { name, quantity }) {
     name,
     quantity,
   };
-}
+};
 
-async function updateProductBySale(productId, quantity, add = false) {
+const updateProductBySale = async (productId, quantity, add = false) => {
   const product = await getProducts(productId);
 
   if (add) product.quantity += quantity;
   else product.quantity -= quantity;
 
   await productsModel.updateProduct(productId, product.name, product.quantity);
-}
+};
 
 async function deleteProduct(id) {
   const result = await productsModel.deleteProduct(id);
