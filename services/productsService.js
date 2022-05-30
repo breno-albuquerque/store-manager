@@ -47,6 +47,10 @@ const updateProduct = async (id, { name, quantity }) => {
 const updateProductBySale = async (productId, quantity, add = false) => {
   const product = await getProducts(productId);
 
+  if (product.quantity < quantity && !add) {
+    throw new MyError('Such amount is not permitted to sell', 422);
+  }
+
   if (add) product.quantity += quantity;
   else product.quantity -= quantity;
 

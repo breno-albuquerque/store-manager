@@ -43,6 +43,7 @@ const getSaleById = async (id) => {
 
 const postSales = async (saleArr) => {
   const products = await productService.getProducts();
+
   saleArr.forEach((sale) => verifyProductQuantity(products, sale));
 
   const date = `${new Date().toLocaleDateString('zh-Hans-CN')}\n
@@ -67,13 +68,14 @@ const postSales = async (saleArr) => {
 const updateSalesProduct = async (id, [{ productId, quantity }]) => {
   const prevSale = await getSaleById(id);
   const prevProductData = prevSale.find((item) => item.productId === productId);
-
-  await salesModel.updateSalesProduct(id, productId, quantity);
-
+  
   const prevQuant = prevProductData.quantity;
   const quantDiff = prevQuant - quantity;
-  if (quantDiff < 0) await productService.updateProductBySale(productId, quantDiff * -1);
+
+  if (quantDiff < 0) await productService.updateProductBySale(productId, Math.abs(quantDiff));
   if (quantDiff > 0) await productService.updateProductBySale(productId, quantDiff, true);
+
+  await salesModel.updateSalesProduct(id, productId, quantity);
 
   return {
     saleId: id,
