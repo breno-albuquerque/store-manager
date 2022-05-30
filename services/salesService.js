@@ -1,3 +1,4 @@
+const { format } = require('date-fns');
 const salesModel = require('../models/salesModel');
 const MyError = require('../helpers/MyError');
 const productService = require('./productsService');
@@ -46,8 +47,7 @@ const postSales = async (saleArr) => {
 
   saleArr.forEach((sale) => verifyProductQuantity(products, sale));
 
-  const date = `${new Date().toLocaleDateString('zh-Hans-CN')}\n
-   ${new Date().toLocaleTimeString('en-GB')}`;
+  const date = format(new Date(), 'yyyy/MM/dd HH:mm:ss');
 
   const { insertId } = await salesModel.postSales(date);
 
