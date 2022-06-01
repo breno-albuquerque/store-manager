@@ -67,7 +67,7 @@ const postSales = async (saleArr) => {
 
 const updateSalesProduct = async (id, [{ productId, quantity }]) => {
   const prevSale = await getSaleById(id);
-  const prevProductData = prevSale.find((item) => item.productId === productId);
+  const prevProductData = prevSale.find((item) => parseInt(item.productId) === parseInt(productId));
   
   const prevQuant = prevProductData.quantity;
   const quantDiff = prevQuant - quantity;
