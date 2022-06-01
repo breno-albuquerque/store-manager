@@ -1,6 +1,7 @@
 const express = require('express');
 const Router = require('./routes');
 const middlewares = require('./middlewares');
+const cors = require('cors');
 
 const app = express();
 

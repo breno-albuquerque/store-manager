@@ -13,7 +13,7 @@ function formatSales(sale) {
 }
 
 function verifyProductQuantity(products, sale) {
-  const currProduct = products.find((product) => product.id === sale.productId);
+  const currProduct = products.find((product) => parseInt(product.id) === parseInt(sale.productId));
   
   if (currProduct.quantity < sale.quantity) {
     throw new MyError('Such amount is not permitted to sell', 422);
