@@ -10,6 +10,8 @@ app.get('/', (_request, response) => {
 
 app.use(express.json());
 
+app.use(cors());
+
 app.use(Router);
 
 app.use(middlewares.errorMiddleware);
