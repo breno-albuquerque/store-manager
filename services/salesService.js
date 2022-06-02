@@ -12,6 +12,14 @@ function formatSales(sale) {
   }));
 }
 
+const verifyProductId = (products, sale) => {
+  const currProduct = products.find((product) => parseInt(product.id) === parseInt(sale.productId));
+  
+  if (currProduct === undefined) {
+    throw new MyError('The product(s) is not available');
+  }
+}
+
 function verifyProductQuantity(products, sale) {
   const currProduct = products.find((product) => parseInt(product.id) === parseInt(sale.productId));
   
@@ -45,6 +53,7 @@ const getSaleById = async (id) => {
 const postSales = async (saleArr) => {
   const products = await productService.getProducts();
 
+  saleArr.forEach((sale) => verifyProductId(products, sale));
   saleArr.forEach((sale) => verifyProductQuantity(products, sale));
 
   const date = format(new Date(), 'yyyy/MM/dd HH:mm:ss');
