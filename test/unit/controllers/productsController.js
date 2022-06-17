@@ -1,5 +1,4 @@
 const { expect } = require('chai');
-const { request } = require('express');
 const sinon = require('sinon');
 
 const productsController = require('../../../controllers/productsController');
