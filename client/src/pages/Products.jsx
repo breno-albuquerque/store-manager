@@ -7,8 +7,10 @@ function Products() {
     name: '',
     quantity: '',
   });
-  const [editProduct, setEditProduct] = useState({
-    id: '',
+
+  const [selectedEdit, setSelectedEdit] = useState('');
+  const [editedProduct, setEditedProduct] = useState({
+    id: 1,
     name: '',
     quantity: '',
   });
@@ -34,28 +36,17 @@ function Products() {
   const handleEditChange = ({ target }) => {
     const { name, value } = target;
 
-    if (value === 'Select Product') {
-      setEditProduct((prev) => ({
-        ...prev,
-        [name]: '',
-      }));
-
-      return;
-    }
-
     if (name === 'id') {
-      const findProd = products.find((product) => product.name === value);
-
-      setEditProduct((prev) => ({
+      setSelectedEdit(value);
+      setEditedProduct((prev) => ({
         ...prev,
-        name: findProd.name,
-        id: findProd.id,
+        id: parseInt(value[0], 10),
       }));
 
       return;
     }
 
-    setEditProduct((prev) => ({
+    setEditedProduct((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -103,14 +94,12 @@ function Products() {
           <select
             onChange={handleEditChange}
             name="id"
-            value={editProduct.name}
+            value={selectedEdit}
             id="product-id"
           >
-            <option>Select Product</option>
             { products.length > 0 && products.map((product) => (
               <option key={product.id}>
-                {' '}
-                { product.name }
+                {`${product.id} - ${product.name}`}
               </option>
             )) }
           </select>
@@ -124,7 +113,7 @@ function Products() {
             placeholder="New Name"
             name="name"
             id="product-name"
-            value={editProduct.name}
+            value={editedProduct.name}
             type="text"
           />
         </label>
@@ -135,7 +124,7 @@ function Products() {
           <input
             onChange={handleEditChange}
             placeholder="New Quantity"
-            value={editProduct.quantity}
+            value={editedProduct.quantity}
             name="quantity"
             id="product-quantity"
             type="number"
