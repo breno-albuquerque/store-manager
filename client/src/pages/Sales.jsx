@@ -7,9 +7,9 @@ function Sales() {
         htmlFor="product-id"
       >
         <input
-          onChange={}
+/*           onChange={}
           name="productId"
-          value={}
+          value={} */
           placeholder="Product Id"
           id="product-id"
           type="text"
@@ -20,20 +20,20 @@ function Sales() {
         htmlFor="product-quantity"
       >
         <input
-          onChange={}
-          value={}
+/*           onChange={}
+          value={} */
           name="quantity"
           placeholder="Quantity"
           id="product-quantity"
           type="text"
         />
-        </label>
+      </label>
 
-      <Button
+      <button
         type="button"
-        onClick={}
       >
-      </Button>
+        Add
+      </button>
     </form>
   );
 }
