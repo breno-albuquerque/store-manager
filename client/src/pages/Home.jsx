@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
-import { getProducts } from '../services/requests';
+import { getProducts, getSales } from '../services/requests';
 
 function Home() {
   const [products, setProducts] = useState([]);
+  const [sales, setSales] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -11,6 +12,12 @@ function Home() {
       setProducts(data);
     };
 
+    const fetchSales = async () => {
+      const data = await getSales();
+      setSales(data);
+    };
+
+    fetchSales();
     fetchProducts();
   }, []);
 
@@ -38,6 +45,27 @@ function Home() {
         </tbody>
       </table>
 
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Product Id</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          { sales.length > 0 && sales.map((sale) => {
+            const { saleId, productId, quantity } = sale;
+            return (
+              <tr key={saleId}>
+                <td>{ saleId }</td>
+                <td>{ productId }</td>
+                <td>{ quantity }</td>
+              </tr>
+            );
+          }) }
+        </tbody>
+      </table>
     </main>
   );
 }
