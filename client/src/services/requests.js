@@ -5,51 +5,51 @@ const instance = axios.create({
 });
 
 export const getProducts = async () => {
-  const data = await instance.get('/products');
-  return data;
+  const response = await instance.get('/products');
+  return response.data;
 };
 
 export const getProductById = async (id) => {
-  const data = await instance.get(`/products/${id}`);
-  return data;
+  const response = await instance.get(`/products/${id}`);
+  return response.data;
 };
 
 export const postProduct = async (product) => {
-  const data = await instance.post('/products', product);
-  return data;
+  const response = await instance.post('/products', product);
+  return response.data;
 };
 
 export const updateProduct = async (id, product) => {
-  const data = await instance.put(`/products/${id}`, product);
-  return data;
+  const response = await instance.put(`/products/${id}`, product);
+  return response.data;
 };
 
 export const deleteProduct = async (id) => {
-  const data = await instance.delete(`/products/${id}`);
-  return data;
+  const response = await instance.delete(`/products/${id}`);
+  return response.data;
 };
 
 export const getSales = async () => {
-  const data = await instance.get('/sales');
-  return data;
+  const response = await instance.get('/sales');
+  return response.data;
 };
 
 export const getSaleById = async (id) => {
-  const data = await instance.get(`/sales${id}`);
-  return data;
+  const response = await instance.get(`/sales${id}`);
+  return response.data;
 };
 
 export const postSale = async (sale) => {
-  const data = await instance.post('/sales', sale);
-  return data;
+  const response = await instance.post('/sales', sale);
+  return response.data;
 };
 
 export const updateSale = async (id, sale) => {
-  const data = await instance.put(`/sales${id}`, sale);
-  return data;
+  const response = await instance.put(`/sales${id}`, sale);
+  return response.data;
 };
 
 export const deleteSale = async (id) => {
-  const data = await instance.delete(`/sales${id}`);
-  return data;
+  const response = await instance.delete(`/sales${id}`);
+  return response.data;
 };
