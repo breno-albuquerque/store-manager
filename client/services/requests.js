@@ -24,27 +24,32 @@ export const updateProduct = async (id, product) => {
   return data;
 };
 
-export const deleteProduct = async () => {
-  const data = instance.get('/products');
+export const deleteProduct = async (id) => {
+  const data = await instance.delete(`/products/${id}`);
   return data;
 };
 
 export const getSales = async () => {
-
+  const data = await instance.get('/sales');
+  return data;
 };
 
-export const getSaleById = async () => {
-
+export const getSaleById = async (id) => {
+  const data = await instance.get(`/sales${id}`);
+  return data;
 };
 
-export const postSale = async () => {
-
+export const postSale = async (sale) => {
+  const data = await instance.post('/sales', sale);
+  return data;
 };
 
-export const updateSale = async () => {
-
+export const updateSale = async (id, sale) => {
+  const data = await instance.put(`/sales${id}`, sale);
+  return data;
 };
 
-export const deleteSale = async () => {
-
+export const deleteSale = async (id) => {
+  const data = await instance.delete(`/sales${id}`);
+  return data;
 };
