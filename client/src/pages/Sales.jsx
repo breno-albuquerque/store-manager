@@ -3,13 +3,22 @@ import React from 'react';
 function Sales() {
   return (
     <form>
+      <h2>Add Sale</h2>
+
       <label
         htmlFor="product-id"
       >
         <input
-/*           onChange={}
-          name="productId"
-          value={} */
+          placeholder="Products Sold"
+          id="product-id"
+          type="number"
+        />
+      </label>
+
+      <label
+        htmlFor="product-id"
+      >
+        <input
           placeholder="Product Id"
           id="product-id"
           type="text"
@@ -20,8 +29,7 @@ function Sales() {
         htmlFor="product-quantity"
       >
         <input
-/*           onChange={}
-          value={} */
+
           name="quantity"
           placeholder="Quantity"
           id="product-quantity"
