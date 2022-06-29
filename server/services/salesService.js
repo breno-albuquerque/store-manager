@@ -9,6 +9,7 @@ function formatSales(sale) {
     date: item.date,
     productId: item.product_id,
     quantity: item.quantity,
+    productName: item.name
   }));
 }
 
