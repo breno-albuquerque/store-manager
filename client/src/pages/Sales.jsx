@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { getProducts } from '../services/requests';
+import { useNavigate } from 'react-router-dom';
+import { getProducts, postSale } from '../services/requests';
 
 function Sales() {
+  const navigate = useNavigate();
+
   const [products, setProducts] = useState([]);
   const [prodToSale, setProdToSale] = useState([]);
   const [sale, setSale] = useState([]);
@@ -64,8 +67,13 @@ function Sales() {
     setProdToSale(update);
   };
 
-  const handleAddSale = () => {
-
+  const handleAddClick = async () => {
+    const saleToAdd = sale.map((item) => ({
+      productId: item.id,
+      quantity: item.quantity,
+    }));
+    const data = await postSale(saleToAdd);
+    navigate('/');
   };
 
   return (
@@ -105,7 +113,7 @@ function Sales() {
 
       <button
         type="button"
-        onClick={handleAddSale}
+        onClick={handleAddClick}
       >
         Add Sale
       </button>
