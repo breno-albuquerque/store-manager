@@ -26,7 +26,7 @@ function Navigation({ location }) {
           id="basic-navbar-nav"
         >
           <Nav
-            className="fw-bold w-100 fs-4 justify-content-evenly"
+            className="p-2 fw-bold w-100 fs-2 justify-content-evenly"
           >
             <Nav.Link
               className={`${location === 'home' && 'text-light'}`}

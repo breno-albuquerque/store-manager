@@ -1,8 +1,86 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'react-bootstrap';
+/* import { Table } from 'react-bootstrap'; */
+import styled, { ThemeProvider } from 'styled-components';
 import Navigation from '../components/Navigation';
+import theme from '../Theme';
 
 import { getProducts, getSales } from '../services/requests';
+
+const Container = styled.div`
+  margin: 0 auto;
+  max-width: 992px;
+`;
+
+const Table = styled.table`
+  box-sizing: border-box;
+  margin: 0 auto;
+
+  color: ${(p) => p.theme.alt};
+
+  background-color: ${(p) => p.theme.back};
+  border-radius: 5px;
+
+  width: 80%;
+
+  text-align: center;
+  border-collapse: collapse;
+
+  margin-bottom: 32px;
+
+  &:nth-child(n) {
+    text-align: center;
+  }
+
+  @media(min-width: 992px) {
+    margin-bottom: 56px;
+    font-size: 20px;
+  }
+`;
+
+const Th = styled.th`
+  border-bottom: 1px solid ${(props) => props.theme.alt};
+  padding: 8px;
+
+  @media(min-width: 992px) {
+    padding: 12px;
+  }
+`;
+
+const Td = styled.td`
+  padding: 8px;
+  color: ${(props) => props.theme.alt};
+  font-family: ${(props) => props.delete && 'Material Icons'};
+
+  @media(min-width: 992px) {
+    padding: 12px;
+
+    &:hover {
+      cursor: ${(props) => props.delete && 'pointer'};
+      transform: ${(props) => props.delete && 'scale(1.1)'};
+      color: ${(props) => props.delete && props.theme.light};
+    }
+  }
+`;
+
+const IdTd = styled.td`
+  background-color: ${(props) => props.theme.light};
+  border-bottom-left-radius: ${(props) => props.last && '5px'};
+  width: 36px;
+
+  @media(min-width: 992px) {
+    width: 44px;
+  }
+`;
+
+const IdTh = styled.th`
+  background-color: ${(props) => props.theme.light};
+  border-bottom: 1px solid ${(props) => props.theme.alt};
+  border-top-left-radius: 5px;
+
+  @media(min-width: 992px) {
+    padding: 12px;
+  }
+`;
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -24,53 +102,74 @@ function Home() {
   }, []);
 
   return (
-    <main>
+    <ThemeProvider theme={theme}>
       <Navigation location="home" />
+      <Container>
 
-      <Table>
-        <thead>
-          <tr>
-            <td>Id</td>
-            <td>Name</td>
-            <td>Quantity</td>
-          </tr>
-        </thead>
-        <tbody>
-          { products.length > 0 && products.map((product) => {
-            const { id, name, quantity } = product;
-            return (
-              <tr key={id}>
-                <td>{ id }</td>
-                <td>{ name }</td>
-                <td>{ quantity }</td>
-              </tr>
-            );
-          }) }
-        </tbody>
-      </Table>
+        <Table>
+          <thead>
+            <tr>
+              <IdTh>Id</IdTh>
+              <Th>Name</Th>
+              <Th>Quantity</Th>
+            </tr>
+          </thead>
+          <tbody>
+            { products.length > 0 && products.map((product, index) => {
+              const { id, name, quantity } = product;
+              if (index === products.length - 1) {
+                return (
+                  <tr key={id}>
+                    <IdTd last>{ id }</IdTd>
+                    <Td>{ name }</Td>
+                    <Td>{ quantity }</Td>
+                  </tr>
+                );
+              }
+              return (
+                <tr key={id}>
+                  <IdTd>{ id }</IdTd>
+                  <Td>{ name }</Td>
+                  <Td>{ quantity }</Td>
+                </tr>
+              );
+            }) }
+          </tbody>
+        </Table>
 
-      <Table>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Product Id</th>
-            <th>Quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-          { sales.length > 0 && sales.map((sale) => {
-            const { saleId, productId, quantity } = sale;
-            return (
-              <tr key={saleId}>
-                <td>{ saleId }</td>
-                <td>{ productId }</td>
-                <td>{ quantity }</td>
-              </tr>
-            );
-          }) }
-        </tbody>
-      </Table>
-    </main>
+        <Table>
+          <thead>
+            <tr>
+              <IdTh>Id</IdTh>
+              <Th>Product Id</Th>
+              <Th>Quantity</Th>
+            </tr>
+          </thead>
+          <tbody>
+            { sales.length > 0 && sales.map((sale, index) => {
+              const { saleId, productId, quantity } = sale;
+              if (index === sales.length - 1) {
+                return (
+                  <tr key={saleId}>
+                    <IdTd last>{ saleId }</IdTd>
+                    <Td>{ productId }</Td>
+                    <Td>{ quantity }</Td>
+                  </tr>
+                );
+              }
+              return (
+                <tr key={saleId}>
+                  <IdTd>{ sale.saleId }</IdTd>
+                  <Td>{ sale.productId }</Td>
+                  <Td>{ sale.quantity }</Td>
+                  {/* <Td delete onClick={() => handleDelete(saleId)}>delete</Td> */}
+                </tr>
+              );
+            }) }
+          </tbody>
+        </Table>
+      </Container>
+    </ThemeProvider>
   );
 }
 
