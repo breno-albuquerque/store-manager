@@ -2,8 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import { Button, Form } from 'react-bootstrap';
+import styled, { ThemeProvider } from 'styled-components';
 import Navigation from '../components/Navigation';
 import { getProducts, postProduct, updateProduct } from '../services/requests';
+import theme from '../Theme';
+
+const Container = styled.div`
+  margin: 0 auto;
+  max-width: 992px;
+  font-family: ${(p) => p.theme.font};
+`;
 
 function Products() {
   const navigate = useNavigate();
@@ -79,111 +87,114 @@ function Products() {
   };
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
+
       <Navigation location="products" />
+      <Container>
 
-      <Toaster />
+        <Toaster />
 
-      <Form>
-        <h2>Add product</h2>
-        <Form.Group
-          className="mb-3"
-          controlId="formBasicEmail"
-        >
-          <Form.Label>Product Name</Form.Label>
-          <Form.Control
-            placeholder="Name"
-            name="name"
-            onChange={handleAddChange}
-            value={addProduct.name}
-            id="product-name"
-            type="text"
-          />
-        </Form.Group>
-
-        <Form.Group
-          className="mb-3"
-          controlId="formBasicEmail"
-        >
-          <Form.Label>Product Quantity</Form.Label>
-          <Form.Control
-            placeholder="Quantity"
-            name="quantity"
-            onChange={handleAddChange}
-            value={addProduct.quantity}
-            id="product-quantity"
-            type="number"
-          />
-        </Form.Group>
-
-        <Button
-          onClick={handleAddClick}
-          type="button"
-        >
-          Add
-        </Button>
-      </Form>
-
-      <Form>
-        <h2>Edit product</h2>
-
-        <Form.Group
-          className="mb-3"
-          controlId="formBasicEmail"
-        >
-          <Form.Label>Product</Form.Label>
-          <Form.Select
-            onChange={handleEditChange}
-            name="id"
-            value={selectedEdit}
-            id="product-id"
+        <Form>
+          <h2>Add product</h2>
+          <Form.Group
+            className="mb-3"
+            controlId="formBasicEmail"
           >
-            { products.length > 0 && products.map((product) => (
-              <option key={product.id}>
-                {`${product.id} - ${product.name}`}
-              </option>
-            )) }
-          </Form.Select>
-        </Form.Group>
+            <Form.Label>Product Name</Form.Label>
+            <Form.Control
+              placeholder="Name"
+              name="name"
+              onChange={handleAddChange}
+              value={addProduct.name}
+              id="product-name"
+              type="text"
+            />
+          </Form.Group>
 
-        <Form.Group
-          className="mb-3"
-          controlId="formBasicEmail"
-        >
-          <Form.Label>New Name</Form.Label>
-          <Form.Control
-            onChange={handleEditChange}
-            placeholder="New Name"
-            name="name"
-            id="product-name"
-            value={editedProduct.name}
-            type="text"
-          />
-        </Form.Group>
+          <Form.Group
+            className="mb-3"
+            controlId="formBasicEmail"
+          >
+            <Form.Label>Product Quantity</Form.Label>
+            <Form.Control
+              placeholder="Quantity"
+              name="quantity"
+              onChange={handleAddChange}
+              value={addProduct.quantity}
+              id="product-quantity"
+              type="number"
+            />
+          </Form.Group>
 
-        <Form.Group
-          className="mb-3"
-          controlId="formBasicEmail"
-        >
-          <Form.Label>New Quantity</Form.Label>
-          <Form.Control
-            onChange={handleEditChange}
-            placeholder="New Quantity"
-            value={editedProduct.quantity}
-            name="quantity"
-            id="product-quantity"
-            type="number"
-          />
-        </Form.Group>
+          <Button
+            onClick={handleAddClick}
+            type="button"
+          >
+            Add
+          </Button>
+        </Form>
 
-        <Button
-          type="button"
-          onClick={handleEditClick}
-        >
-          Edit
-        </Button>
-      </Form>
-    </div>
+        <Form>
+          <h2>Edit product</h2>
+
+          <Form.Group
+            className="mb-3"
+            controlId="formBasicEmail"
+          >
+            <Form.Label>Product</Form.Label>
+            <Form.Select
+              onChange={handleEditChange}
+              name="id"
+              value={selectedEdit}
+              id="product-id"
+            >
+              { products.length > 0 && products.map((product) => (
+                <option key={product.id}>
+                  {`${product.id} - ${product.name}`}
+                </option>
+              )) }
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group
+            className="mb-3"
+            controlId="formBasicEmail"
+          >
+            <Form.Label>New Name</Form.Label>
+            <Form.Control
+              onChange={handleEditChange}
+              placeholder="New Name"
+              name="name"
+              id="product-name"
+              value={editedProduct.name}
+              type="text"
+            />
+          </Form.Group>
+
+          <Form.Group
+            className="mb-3"
+            controlId="formBasicEmail"
+          >
+            <Form.Label>New Quantity</Form.Label>
+            <Form.Control
+              onChange={handleEditChange}
+              placeholder="New Quantity"
+              value={editedProduct.quantity}
+              name="quantity"
+              id="product-quantity"
+              type="number"
+            />
+          </Form.Group>
+
+          <Button
+            type="button"
+            onClick={handleEditClick}
+          >
+            Edit
+          </Button>
+        </Form>
+      </Container>
+    </ThemeProvider>
   );
 }
 

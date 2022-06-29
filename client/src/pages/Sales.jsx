@@ -2,8 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import styled, { ThemeProvider } from 'styled-components';
 import Navigation from '../components/Navigation';
 import { getProducts, postSale } from '../services/requests';
+import theme from '../Theme';
+
+const Container = styled.div`
+  margin: 0 auto;
+  max-width: 992px;
+  font-family: ${(p) => p.theme.font};
+`;
 
 function Sales() {
   const navigate = useNavigate();
@@ -88,52 +96,54 @@ function Sales() {
   };
 
   return (
-    <Form>
+    <ThemeProvider theme={theme}>
       <Navigation location="sales" />
+      <Container>
 
-      <Toaster />
+        <Toaster />
 
-      <h2>Add Sale</h2>
+        <h2>Add Sale</h2>
 
-      { products && products.map((product) => {
-        const { id, name } = product;
-        return (
+        { products && products.map((product) => {
+          const { id, name } = product;
+          return (
 
-          <Form.Group
-            className="mb-3"
-            controlId="formBasicEmail"
-          >
-            <Form.Label>Product</Form.Label>
-            {`${id} - ${name}`}
-            <input
-              name={id}
-              placeholder="Quantity"
-              onChange={handleQuantityChange}
-              value={
+            <Form.Group
+              className="mb-3"
+              controlId="formBasicEmail"
+            >
+              <Form.Label>Product</Form.Label>
+              {`${id} - ${name}`}
+              <input
+                name={id}
+                placeholder="Quantity"
+                onChange={handleQuantityChange}
+                value={
                   prodToSale.find((e) => parseInt(e.id, 10) === parseInt(id, 10)).quantity
                 }
-              id={`quantity-${id}`}
-              type="number"
-            />
+                id={`quantity-${id}`}
+                type="number"
+              />
 
-            <Button
-              type="button"
-              onClick={({ target }) => handleIncludeClick(target, id)}
-              disabled={handleDisableBtn(id)}
-            >
-              Include
-            </Button>
-          </Form.Group>
-        );
-      }) }
+              <Button
+                type="button"
+                onClick={({ target }) => handleIncludeClick(target, id)}
+                disabled={handleDisableBtn(id)}
+              >
+                Include
+              </Button>
+            </Form.Group>
+          );
+        }) }
 
-      <Button
-        type="button"
-        onClick={handleAddClick}
-      >
-        Add Sale
-      </Button>
-    </Form>
+        <Button
+          type="button"
+          onClick={handleAddClick}
+        >
+          Add Sale
+        </Button>
+      </Container>
+    </ThemeProvider>
   );
 }
 
