@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Header from '../components/Header';
 
 import { getProducts, getSales } from '../services/requests';
 
@@ -23,6 +24,8 @@ function Home() {
 
   return (
     <main>
+      <Header />
+
       <table>
         <thead>
           <tr>

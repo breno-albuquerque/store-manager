@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 import { getProducts, postProduct, updateProduct } from '../services/requests';
 
 function Products() {
@@ -67,6 +68,8 @@ function Products() {
 
   return (
     <div>
+      <Header />
+
       <form>
         <h2>Add product</h2>
         <label
