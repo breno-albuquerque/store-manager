@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import styled, { ThemeProvider } from 'styled-components';
 import Navigation from '../components/Navigation';
 import { getProducts, postProduct, updateProduct } from '../services/requests';
@@ -11,6 +11,38 @@ const Container = styled.div`
   margin: 0 auto;
   max-width: 992px;
   font-family: ${(p) => p.theme.font};
+`;
+
+const Title = styled.h2`
+  font-weight: 900;
+  color: ${(p) => p.theme.back};
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 16px;
+`;
+
+const Button = styled.button`
+  border-radius: 5px;
+  border: none;
+  background-color: ${(props) => props.theme.light};
+
+  color: ${(props) => props.theme.back};
+  font-weight: 900;
+  font-size: 16px;
+
+  margin: 16px auto 40px auto;
+
+  height: 24px;
+  width: 40%;
+  transition: all 0.3s;
+
+  height: 32px;
+  font-size: 20px;
+
+  &:hover {
+      transform: scale(1.05);
+    }
+  cursor: pointer;
 `;
 
 function Products() {
@@ -94,13 +126,13 @@ function Products() {
 
         <Toaster />
 
-        <Form>
-          <h2>Add product</h2>
+        <Form className="d-flex flex-column">
+          <Title>Add product</Title>
           <Form.Group
             className="mb-3"
             controlId="formBasicEmail"
           >
-            <Form.Label>Product Name</Form.Label>
+            <Form.Label className="text-light">Product Name</Form.Label>
             <Form.Control
               placeholder="Name"
               name="name"
@@ -115,7 +147,7 @@ function Products() {
             className="mb-3"
             controlId="formBasicEmail"
           >
-            <Form.Label>Product Quantity</Form.Label>
+            <Form.Label className="text-light">Product Quantity</Form.Label>
             <Form.Control
               placeholder="Quantity"
               name="quantity"
@@ -134,14 +166,14 @@ function Products() {
           </Button>
         </Form>
 
-        <Form>
-          <h2>Edit product</h2>
+        <Form className="d-flex flex-column">
+          <Title>Edit product</Title>
 
           <Form.Group
             className="mb-3"
             controlId="formBasicEmail"
           >
-            <Form.Label>Product</Form.Label>
+            <Form.Label className="text-light">Product</Form.Label>
             <Form.Select
               onChange={handleEditChange}
               name="id"
@@ -160,7 +192,7 @@ function Products() {
             className="mb-3"
             controlId="formBasicEmail"
           >
-            <Form.Label>New Name</Form.Label>
+            <Form.Label className="text-light">New Name</Form.Label>
             <Form.Control
               onChange={handleEditChange}
               placeholder="New Name"
@@ -175,7 +207,7 @@ function Products() {
             className="mb-3"
             controlId="formBasicEmail"
           >
-            <Form.Label>New Quantity</Form.Label>
+            <Form.Label className="text-light">New Quantity</Form.Label>
             <Form.Control
               onChange={handleEditChange}
               placeholder="New Quantity"
