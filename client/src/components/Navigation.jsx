@@ -15,6 +15,7 @@ function Navigation({ location }) {
 
   return (
     <Navbar
+      className="mb-5"
       bg="success"
       expand="lg"
     >

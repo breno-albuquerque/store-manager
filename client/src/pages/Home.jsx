@@ -6,9 +6,18 @@ import theme from '../Theme';
 
 import { getProducts, getSales } from '../services/requests';
 
+const Title = styled.h2`
+  font-size: 36px;
+  text-align: center;
+  color: ${(p) => p.theme.back};
+  margin-bottom: 20px;
+  font-weight: 900;
+`;
+
 const Container = styled.div`
   margin: 0 auto;
   max-width: 992px;
+  font-family: ${(p) => p.theme.font};
 `;
 
 const Table = styled.table`
@@ -19,6 +28,7 @@ const Table = styled.table`
 
   background-color: ${(p) => p.theme.back};
   border-radius: 5px;
+  box-shadow: 0px 0px 17px 5px ${(p) => `${p.theme.back}10`};
 
   width: 80%;
 
@@ -106,6 +116,8 @@ function Home() {
       <Navigation location="home" />
       <Container>
 
+        <Title>Product Stock</Title>
+
         <Table>
           <thead>
             <tr>
@@ -136,6 +148,8 @@ function Home() {
             }) }
           </tbody>
         </Table>
+
+        <Title>Sale Log</Title>
 
         <Table>
           <thead>
