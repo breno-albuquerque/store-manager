@@ -165,20 +165,23 @@ function Home() {
         <Table>
           <thead>
             <tr>
-              <IdTh>Id</IdTh>
-              <Th>Product Id</Th>
+              <IdTh>Sale</IdTh>
+              <Th>Product</Th>
               <Th>Quantity</Th>
               <Th>Del</Th>
             </tr>
           </thead>
           <tbody>
             { sales.length > 0 && sales.map((sale, index) => {
-              const { saleId, productId, quantity } = sale;
+              const {
+                saleId, quantity, productName,
+              } = sale;
+
               if (index === sales.length - 1) {
                 return (
                   <tr>
                     <IdTd last>{ saleId }</IdTd>
-                    <Td>{ productId }</Td>
+                    <Td>{ productName }</Td>
                     <Td>{ quantity }</Td>
                     <Td delete onClick={() => handleDelete(saleId)}>delete</Td>
                   </tr>
@@ -187,7 +190,7 @@ function Home() {
               return (
                 <tr>
                   <IdTd>{ sale.saleId }</IdTd>
-                  <Td>{ sale.productId }</Td>
+                  <Td>{ productName }</Td>
                   <Td>{ sale.quantity }</Td>
                   <Td delete onClick={() => handleDelete(saleId)}>delete</Td>
                 </tr>
