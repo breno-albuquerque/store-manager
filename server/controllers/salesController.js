@@ -41,7 +41,6 @@ const updateSalesProduct = async (req, res, next) => {
 const deleteSalesProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
-    console.log(id)
     await salesService.deleteSalesProduct(parseInt(id));
     res.status(204).end();
   } catch (error) {

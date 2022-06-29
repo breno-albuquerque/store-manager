@@ -60,13 +60,17 @@ const postSales = async (saleArr) => {
 
   const { insertId } = await salesModel.postSales(date);
 
-  saleArr.forEach(async (e) => {
-    await salesModel.postSalesProduct(e.productId, insertId, e.quantity);
+  const sPromise = []
+  saleArr.forEach((e) => {
+    sPromise.push(salesModel.postSalesProduct(e.productId, insertId, e.quantity));
   });
+  await Promise.all(sPromise)
 
+  const pPromise = []
   saleArr.forEach(async (e) => {
-    await productService.updateProductBySale(e.productId, e.quantity);
+    pPromise.push(productService.updateProductBySale(e.productId, e.quantity));
   });
+  await Promise.all(pPromise)
 
   return {
     id: insertId,

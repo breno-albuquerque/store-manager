@@ -54,7 +54,9 @@ const updateProductBySale = async (productId, quantity, add = false) => {
   if (add) product.quantity += quantity;
   else product.quantity -= quantity;
 
-  await productsModel.updateProduct(productId, product.name, product.quantity);
+  const result = await productsModel.updateProduct(productId, product.name, product.quantity);
+
+  console.log(result.affectedRows)
 };
 
 const deleteProduct = async (id) => {
