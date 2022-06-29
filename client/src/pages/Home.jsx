@@ -4,13 +4,13 @@ import styled, { ThemeProvider } from 'styled-components';
 import Navigation from '../components/Navigation';
 import theme from '../Theme';
 
-import { getProducts, getSales } from '../services/requests';
+import { deleteSale, getProducts, getSales } from '../services/requests';
 
 const Title = styled.h2`
   font-size: 36px;
   text-align: center;
   color: ${(p) => p.theme.back};
-  margin-bottom: 20px;
+  margin-bottom: 32px;
   font-weight: 900;
 `;
 
@@ -99,19 +99,28 @@ function Home() {
   const [sales, setSales] = useState([]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const data = await getProducts();
-      setProducts(data);
-    };
-
     const fetchSales = async () => {
       const data = await getSales();
       setSales(data);
     };
 
     fetchSales();
-    fetchProducts();
   }, []);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await getProducts();
+      setProducts(data);
+    };
+
+    fetchProducts();
+  }, [sales]);
+
+  async function handleDelete(id) {
+    await deleteSale(id);
+    const data = await getSales();
+    setSales(data);
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -151,7 +160,7 @@ function Home() {
           </tbody>
         </Table>
 
-        <Title>Sale Log</Title>
+        <Title>Sales Logs</Title>
 
         <Table>
           <thead>
@@ -159,6 +168,7 @@ function Home() {
               <IdTh>Id</IdTh>
               <Th>Product Id</Th>
               <Th>Quantity</Th>
+              <Th>Del</Th>
             </tr>
           </thead>
           <tbody>
@@ -166,19 +176,20 @@ function Home() {
               const { saleId, productId, quantity } = sale;
               if (index === sales.length - 1) {
                 return (
-                  <tr key={saleId}>
+                  <tr>
                     <IdTd last>{ saleId }</IdTd>
                     <Td>{ productId }</Td>
                     <Td>{ quantity }</Td>
+                    <Td delete onClick={() => handleDelete(saleId)}>delete</Td>
                   </tr>
                 );
               }
               return (
-                <tr key={saleId}>
+                <tr>
                   <IdTd>{ sale.saleId }</IdTd>
                   <Td>{ sale.productId }</Td>
                   <Td>{ sale.quantity }</Td>
-                  {/* <Td delete onClick={() => handleDelete(saleId)}>delete</Td> */}
+                  <Td delete onClick={() => handleDelete(saleId)}>delete</Td>
                 </tr>
               );
             }) }

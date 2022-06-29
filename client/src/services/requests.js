@@ -89,7 +89,7 @@ export const updateSale = async (id, sale) => {
 
 export const deleteSale = async (id) => {
   try {
-    const response = await instance.delete(`/sales${id}`);
+    const response = await instance.delete(`/sales/${id}`);
     return response.data;
   } catch (error) {
     return error;
