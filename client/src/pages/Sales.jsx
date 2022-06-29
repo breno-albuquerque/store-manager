@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
@@ -87,7 +88,7 @@ function Sales() {
   };
 
   return (
-    <form>
+    <Form>
       <Header />
 
       <Toaster />
@@ -97,41 +98,42 @@ function Sales() {
       { products && products.map((product) => {
         const { id, name } = product;
         return (
-          <div key={id}>
-            <label
-              htmlFor={`quantity-${id}`}
-            >
-              {`${id} - ${name}`}
-              <input
-                name={id}
-                placeholder="Quantity"
-                onChange={handleQuantityChange}
-                value={
+
+          <Form.Group
+            className="mb-3"
+            controlId="formBasicEmail"
+          >
+            <Form.Label>Product</Form.Label>
+            {`${id} - ${name}`}
+            <input
+              name={id}
+              placeholder="Quantity"
+              onChange={handleQuantityChange}
+              value={
                   prodToSale.find((e) => parseInt(e.id, 10) === parseInt(id, 10)).quantity
                 }
-                id={`quantity-${id}`}
-                type="number"
-              />
-            </label>
+              id={`quantity-${id}`}
+              type="number"
+            />
 
-            <button
+            <Button
               type="button"
               onClick={({ target }) => handleIncludeClick(target, id)}
               disabled={handleDisableBtn(id)}
             >
               Include
-            </button>
-          </div>
+            </Button>
+          </Form.Group>
         );
       }) }
 
-      <button
+      <Button
         type="button"
         onClick={handleAddClick}
       >
         Add Sale
-      </button>
-    </form>
+      </Button>
+    </Form>
   );
 }
 
