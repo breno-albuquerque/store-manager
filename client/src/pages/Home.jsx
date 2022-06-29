@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
-import Header from '../components/Header';
+import Navigation from '../components/Navigation';
 
 import { getProducts, getSales } from '../services/requests';
 
@@ -25,7 +25,7 @@ function Home() {
 
   return (
     <main>
-      <Header location="home" />
+      <Navigation location="home" />
 
       <Table>
         <thead>

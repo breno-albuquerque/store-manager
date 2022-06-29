@@ -5,7 +5,7 @@ import {
   Container, Nav, Navbar,
 } from 'react-bootstrap';
 
-function Header({ location }) {
+function Navigation({ location }) {
   const navigate = useNavigate();
 
   const handleRedirect = (event, endpoint) => {
@@ -56,4 +56,4 @@ function Header({ location }) {
   );
 }
 
-export default Header;
+export default Navigation;

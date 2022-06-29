@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import Header from '../components/Header';
+import Navigation from '../components/Navigation';
 import { getProducts, postSale } from '../services/requests';
 
 function Sales() {
@@ -89,7 +89,7 @@ function Sales() {
 
   return (
     <Form>
-      <Header location="sales" />
+      <Navigation location="sales" />
 
       <Toaster />
 

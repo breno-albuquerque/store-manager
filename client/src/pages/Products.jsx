@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import { Button, Form } from 'react-bootstrap';
-import Header from '../components/Header';
+import Navigation from '../components/Navigation';
 import { getProducts, postProduct, updateProduct } from '../services/requests';
 
 function Products() {
@@ -80,7 +80,7 @@ function Products() {
 
   return (
     <div>
-      <Header location="products" />
+      <Navigation location="products" />
 
       <Toaster />
 
