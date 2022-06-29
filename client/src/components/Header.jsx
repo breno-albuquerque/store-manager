@@ -5,7 +5,7 @@ import {
   Container, Nav, Navbar,
 } from 'react-bootstrap';
 
-function Header() {
+function Header({ location }) {
   const navigate = useNavigate();
 
   const handleRedirect = (event, endpoint) => {
@@ -15,16 +15,10 @@ function Header() {
 
   return (
     <Navbar
-      bg="dark"
-      variant="dark"
+      bg="success"
       expand="lg"
     >
       <Container>
-        <Navbar.Brand
-          href="#home"
-        >
-          Navbar
-        </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="basic-navbar-nav"
         />
@@ -32,21 +26,24 @@ function Header() {
           id="basic-navbar-nav"
         >
           <Nav
-            className="me-auto"
+            className="fw-bold w-100 fs-4 justify-content-evenly"
           >
             <Nav.Link
+              className={`${location === 'home' && 'text-light'}`}
               type="button"
               onClick={(event) => handleRedirect(event, '/')}
             >
               Home
             </Nav.Link>
             <Nav.Link
+              className={`${location === 'products' && 'text-light'}`}
               type="button"
               onClick={(event) => handleRedirect(event, '/products')}
             >
               Products
             </Nav.Link>
             <Nav.Link
+              className={`${location === 'sales' && 'text-light'}`}
               type="button"
               onClick={(event) => handleRedirect(event, '/sales')}
             >

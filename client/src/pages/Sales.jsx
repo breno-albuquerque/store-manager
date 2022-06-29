@@ -89,7 +89,7 @@ function Sales() {
 
   return (
     <Form>
-      <Header />
+      <Header location="sales" />
 
       <Toaster />
 

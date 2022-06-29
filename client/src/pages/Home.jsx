@@ -25,7 +25,7 @@ function Home() {
 
   return (
     <main>
-      <Header />
+      <Header location="home" />
 
       <Table>
         <thead>

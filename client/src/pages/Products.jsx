@@ -80,7 +80,7 @@ function Products() {
 
   return (
     <div>
-      <Header />
+      <Header location="products" />
 
       <Toaster />
 
