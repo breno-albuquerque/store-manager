@@ -19,8 +19,10 @@ export const postProduct = async (product) => {
   return response.data;
 };
 
-export const updateProduct = async (id, product) => {
-  const response = await instance.put(`/products/${id}`, product);
+export const updateProduct = async (editedProduct) => {
+  const { id, name, quantity } = editedProduct;
+
+  const response = await instance.put(`/products/${id}`, { name, quantity });
   return response.data;
 };
 

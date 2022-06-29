@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { getProducts } from '../services/requests';
+import { useNavigate } from 'react-router-dom';
+import { getProducts, postProduct, updateProduct } from '../services/requests';
 
 function Products() {
+  const navigate = useNavigate();
+
   const [products, setProducts] = useState([]);
   const [addProduct, setAddProduct] = useState({
     name: '',
@@ -52,6 +55,16 @@ function Products() {
     }));
   };
 
+  const handleAddClick = async () => {
+    const data = await postProduct(addProduct);
+    navigate('/');
+  };
+
+  const handleEditClick = async () => {
+    const data = await updateProduct(editedProduct);
+    navigate('/');
+  };
+
   return (
     <div>
       <form>
@@ -82,7 +95,12 @@ function Products() {
           />
         </label>
 
-        <button type="button">Add</button>
+        <button
+          onClick={handleAddClick}
+          type="button"
+        >
+          Add
+        </button>
       </form>
 
       <form>
@@ -131,7 +149,12 @@ function Products() {
           />
         </label>
 
-        <button type="button">Add</button>
+        <button
+          type="button"
+          onClick={handleEditClick}
+        >
+          Edit
+        </button>
       </form>
     </div>
   );
