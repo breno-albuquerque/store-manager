@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 import Header from '../components/Header';
 import { getProducts, postProduct, updateProduct } from '../services/requests';
 
@@ -58,17 +59,29 @@ function Products() {
 
   const handleAddClick = async () => {
     const data = await postProduct(addProduct);
+
+    if (data.code === 'ERR_BAD_REQUEST') {
+      return toast(data.response.data.message);
+    }
+
     navigate('/');
   };
 
   const handleEditClick = async () => {
     const data = await updateProduct(editedProduct);
+
+    if (data.code === 'ERR_BAD_REQUEST') {
+      return toast(data.response.data.message);
+    }
+
     navigate('/');
   };
 
   return (
     <div>
       <Header />
+
+      <Toaster />
 
       <form>
         <h2>Add product</h2>

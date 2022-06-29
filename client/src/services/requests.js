@@ -5,53 +5,93 @@ const instance = axios.create({
 });
 
 export const getProducts = async () => {
-  const response = await instance.get('/products');
-  return response.data;
+  try {
+    const response = await instance.get('/products');
+    return response.data;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const getProductById = async (id) => {
-  const response = await instance.get(`/products/${id}`);
-  return response.data;
+  try {
+    const response = await instance.get(`/products/${id}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const postProduct = async (product) => {
-  const response = await instance.post('/products', product);
-  return response.data;
+  try {
+    const response = await instance.post('/products', product);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const updateProduct = async (editedProduct) => {
-  const { id, name, quantity } = editedProduct;
+  try {
+    const { id, name, quantity } = editedProduct;
 
-  const response = await instance.put(`/products/${id}`, { name, quantity });
-  return response.data;
+    const response = await instance.put(`/products/${id}`, { name, quantity });
+    return response.data;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const deleteProduct = async (id) => {
-  const response = await instance.delete(`/products/${id}`);
-  return response.data;
+  try {
+    const response = await instance.delete(`/products/${id}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const getSales = async () => {
-  const response = await instance.get('/sales');
-  return response.data;
+  try {
+    const response = await instance.get('/sales');
+    return response.data;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const getSaleById = async (id) => {
-  const response = await instance.get(`/sales${id}`);
-  return response.data;
+  try {
+    const response = await instance.get(`/sales${id}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const postSale = async (sale) => {
-  const response = await instance.post('/sales', sale);
-  return response.data;
+  try {
+    const response = await instance.post('/sales', sale);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const updateSale = async (id, sale) => {
-  const response = await instance.put(`/sales${id}`, sale);
-  return response.data;
+  try {
+    const response = await instance.put(`/sales${id}`, sale);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const deleteSale = async (id) => {
-  const response = await instance.delete(`/sales${id}`);
-  return response.data;
+  try {
+    const response = await instance.delete(`/sales${id}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
 };

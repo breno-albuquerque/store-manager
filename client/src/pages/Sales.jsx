@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { getProducts, postSale } from '../services/requests';
@@ -74,12 +75,22 @@ function Sales() {
       quantity: item.quantity,
     }));
     const data = await postSale(saleToAdd);
+
+    if (data.code === 'ERR_BAD_REQUEST') {
+      toast(data.response.data.message);
+      setToSale(products);
+      setSale([]);
+      return;
+    }
+
     navigate('/');
   };
 
   return (
     <form>
       <Header />
+
+      <Toaster />
 
       <h2>Add Sale</h2>
 
