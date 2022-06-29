@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
@@ -11,6 +11,59 @@ const Container = styled.div`
   margin: 0 auto;
   max-width: 992px;
   font-family: ${(p) => p.theme.font};
+`;
+
+const RegisterButton = styled.button`
+    border-radius: 5px;
+  border: none;
+  padding: 12px;
+  font-size: 20px;
+  background-color: ${(p) => p.theme.light};
+  width: 30%;
+  min-width: 200px;
+  color: ${(p) => p.theme.back};
+  font-weight: 900;
+  transition: all 0.3s;
+  margin-top: 16px;
+
+  &:hover {
+      transform: scale(1.05);
+    }
+`;
+
+const Button = styled.button`
+  border-radius: 5px;
+  border: none;
+  background-color: ${(props) => (props.disabled ? props.theme.alt : props.theme.light)};
+  padding: 8px;
+
+  color: ${(props) => props.theme.back};
+  margin-left: 8px;
+
+
+
+  transition: all 0.3s;
+  font-size: 20px;
+
+  &:hover {
+      transform: scale(1.05);
+    }
+  cursor: pointer;
+`;
+
+const Box = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: ${(p) => p.theme.back};
+  border-radius: 5px;
+`;
+
+const Title = styled.h2`
+  font-weight: 900;
+  color: ${(p) => p.theme.back};
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 32px;
 `;
 
 function Sales() {
@@ -102,47 +155,53 @@ function Sales() {
 
         <Toaster />
 
-        <h2>Add Sale</h2>
+        <Title>Add Sale</Title>
 
-        { products && products.map((product) => {
-          const { id, name } = product;
-          return (
+        <Box>
 
-            <Form.Group
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Product</Form.Label>
-              {`${id} - ${name}`}
-              <input
-                name={id}
-                placeholder="Quantity"
-                onChange={handleQuantityChange}
-                value={
+          { products && products.map((product) => {
+            const { id, name } = product;
+            return (
+
+              <Form.Group
+                className="mb-3 d-flex align-items-center justify-content-evenly flex-wrap align-content-end"
+                controlId="formBasicEmail"
+              >
+                <Form.Label className="w-50 fs-5 fw-bold">{`${id} - ${name}`}</Form.Label>
+
+                <div>
+                  <input
+                    name={id}
+                    placeholder="Quantity"
+                    onChange={handleQuantityChange}
+                    value={
                   prodToSale.find((e) => parseInt(e.id, 10) === parseInt(id, 10)).quantity
                 }
-                id={`quantity-${id}`}
-                type="number"
-              />
+                    id={`quantity-${id}`}
+                    type="number"
+                  />
 
-              <Button
-                type="button"
-                onClick={({ target }) => handleIncludeClick(target, id)}
-                disabled={handleDisableBtn(id)}
-              >
-                Include
-              </Button>
-            </Form.Group>
-          );
-        }) }
+                  <Button
+                    type="button"
+                    onClick={({ target }) => handleIncludeClick(target, id)}
+                    disabled={handleDisableBtn(id)}
+                  >
+                    { handleDisableBtn(id) ? 'Included' : 'Include' }
+                  </Button>
+                </div>
+              </Form.Group>
+            );
+          }) }
 
-        <Button
-          type="button"
-          onClick={handleAddClick}
-        >
-          Add Sale
-        </Button>
+          <RegisterButton
+            type="button"
+            onClick={handleAddClick}
+          >
+            Register Sale
+          </RegisterButton>
+        </Box>
       </Container>
+
     </ThemeProvider>
   );
 }

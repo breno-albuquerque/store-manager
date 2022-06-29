@@ -16,9 +16,9 @@ const Container = styled.div`
 const Title = styled.h2`
   font-weight: 900;
   color: ${(p) => p.theme.back};
-  font-size: 24px;
+  font-size: 32px;
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: 32px;
 `;
 
 const Button = styled.button`
@@ -30,7 +30,7 @@ const Button = styled.button`
   font-weight: 900;
   font-size: 16px;
 
-  margin: 16px auto 40px auto;
+  margin: 16px auto 48px auto;
 
   height: 24px;
   width: 40%;
