@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Table } from 'react-bootstrap';
 import Header from '../components/Header';
 
 import { getProducts, getSales } from '../services/requests';
@@ -26,7 +27,7 @@ function Home() {
     <main>
       <Header />
 
-      <table>
+      <Table>
         <thead>
           <tr>
             <td>Id</td>
@@ -46,9 +47,9 @@ function Home() {
             );
           }) }
         </tbody>
-      </table>
+      </Table>
 
-      <table>
+      <Table>
         <thead>
           <tr>
             <th>Id</th>
@@ -68,7 +69,7 @@ function Home() {
             );
           }) }
         </tbody>
-      </table>
+      </Table>
     </main>
   );
 }
