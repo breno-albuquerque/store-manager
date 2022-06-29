@@ -11,6 +11,10 @@ const Container = styled.div`
   margin: 0 auto;
   max-width: 992px;
   font-family: ${(p) => p.theme.font};
+
+  @media (max-width: 992px) {
+    padding: 16px;
+  }
 `;
 
 const RegisterButton = styled.button`
@@ -24,7 +28,7 @@ const RegisterButton = styled.button`
   color: ${(p) => p.theme.back};
   font-weight: 900;
   transition: all 0.3s;
-  margin-top: 16px;
+  margin: 8px auto 64px auto;
 
   &:hover {
       transform: scale(1.05);
@@ -38,24 +42,21 @@ const Button = styled.button`
   padding: 8px;
 
   color: ${(props) => props.theme.back};
-  margin-left: 8px;
-
-
+  margin: 12px 12px 12px 0;
 
   transition: all 0.3s;
   font-size: 20px;
-
+  cursor: pointer;
+  
   &:hover {
       transform: scale(1.05);
     }
-  cursor: pointer;
 `;
 
 const Box = styled.div`
   display: flex;
   flex-direction: column;
   color: ${(p) => p.theme.back};
-  border-radius: 5px;
 `;
 
 const Title = styled.h2`
@@ -158,37 +159,35 @@ function Sales() {
         <Title>Add Sale</Title>
 
         <Box>
-
           { products && products.map((product) => {
             const { id, name } = product;
             return (
 
               <Form.Group
-                className="mb-3 d-flex align-items-center justify-content-evenly flex-wrap align-content-end"
+                className="mb-3"
                 controlId="formBasicEmail"
               >
-                <Form.Label className="w-50 fs-5 fw-bold">{`${id} - ${name}`}</Form.Label>
+                <Form.Label className="text-left fs-5 fw-bold">{`${id} - ${name}`}</Form.Label>
 
-                <div>
-                  <input
-                    name={id}
-                    placeholder="Quantity"
-                    onChange={handleQuantityChange}
-                    value={
+                <Form.Control
+                  name={id}
+                  placeholder="Quantity"
+                  onChange={handleQuantityChange}
+                  value={
                   prodToSale.find((e) => parseInt(e.id, 10) === parseInt(id, 10)).quantity
                 }
-                    id={`quantity-${id}`}
-                    type="number"
-                  />
+                  id={`quantity-${id}`}
+                  type="number"
+                />
 
-                  <Button
-                    type="button"
-                    onClick={({ target }) => handleIncludeClick(target, id)}
-                    disabled={handleDisableBtn(id)}
-                  >
-                    { handleDisableBtn(id) ? 'Included' : 'Include' }
-                  </Button>
-                </div>
+                <Button
+                  type="button"
+                  onClick={({ target }) => handleIncludeClick(target, id)}
+                  disabled={handleDisableBtn(id)}
+                >
+                  { handleDisableBtn(id) ? 'Included' : 'Include' }
+                </Button>
+
               </Form.Group>
             );
           }) }

@@ -18,6 +18,8 @@ const Container = styled.div`
   margin: 0 auto;
   max-width: 992px;
   font-family: ${(p) => p.theme.font};
+
+
 `;
 
 const Table = styled.table`

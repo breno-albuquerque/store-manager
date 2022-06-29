@@ -11,6 +11,10 @@ const Container = styled.div`
   margin: 0 auto;
   max-width: 992px;
   font-family: ${(p) => p.theme.font};
+
+  @media (max-width: 992px) {
+    padding: 16px;
+  }
 `;
 
 const Title = styled.h2`
