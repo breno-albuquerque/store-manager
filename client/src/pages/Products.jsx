@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
+import { Button, Form } from 'react-bootstrap';
 import Header from '../components/Header';
 import { getProducts, postProduct, updateProduct } from '../services/requests';
 
@@ -83,12 +84,14 @@ function Products() {
 
       <Toaster />
 
-      <form>
+      <Form>
         <h2>Add product</h2>
-        <label
-          htmlFor="product-name"
+        <Form.Group
+          className="mb-3"
+          controlId="formBasicEmail"
         >
-          <input
+          <Form.Label>Product Name</Form.Label>
+          <Form.Control
             placeholder="Name"
             name="name"
             onChange={handleAddChange}
@@ -96,12 +99,14 @@ function Products() {
             id="product-name"
             type="text"
           />
-        </label>
+        </Form.Group>
 
-        <label
-          htmlFor="product-quantity"
+        <Form.Group
+          className="mb-3"
+          controlId="formBasicEmail"
         >
-          <input
+          <Form.Label>Product Quantity</Form.Label>
+          <Form.Control
             placeholder="Quantity"
             name="quantity"
             onChange={handleAddChange}
@@ -109,23 +114,25 @@ function Products() {
             id="product-quantity"
             type="number"
           />
-        </label>
+        </Form.Group>
 
-        <button
+        <Button
           onClick={handleAddClick}
           type="button"
         >
           Add
-        </button>
-      </form>
+        </Button>
+      </Form>
 
-      <form>
+      <Form>
         <h2>Edit product</h2>
 
-        <label
-          htmlFor="product-operation"
+        <Form.Group
+          className="mb-3"
+          controlId="formBasicEmail"
         >
-          <select
+          <Form.Label>Product</Form.Label>
+          <Form.Select
             onChange={handleEditChange}
             name="id"
             value={selectedEdit}
@@ -136,13 +143,15 @@ function Products() {
                 {`${product.id} - ${product.name}`}
               </option>
             )) }
-          </select>
-        </label>
+          </Form.Select>
+        </Form.Group>
 
-        <label
-          htmlFor="product-name"
+        <Form.Group
+          className="mb-3"
+          controlId="formBasicEmail"
         >
-          <input
+          <Form.Label>New Name</Form.Label>
+          <Form.Control
             onChange={handleEditChange}
             placeholder="New Name"
             name="name"
@@ -150,12 +159,14 @@ function Products() {
             value={editedProduct.name}
             type="text"
           />
-        </label>
+        </Form.Group>
 
-        <label
-          htmlFor="product-quantity"
+        <Form.Group
+          className="mb-3"
+          controlId="formBasicEmail"
         >
-          <input
+          <Form.Label>New Quantity</Form.Label>
+          <Form.Control
             onChange={handleEditChange}
             placeholder="New Quantity"
             value={editedProduct.quantity}
@@ -163,15 +174,15 @@ function Products() {
             id="product-quantity"
             type="number"
           />
-        </label>
+        </Form.Group>
 
-        <button
+        <Button
           type="button"
           onClick={handleEditClick}
         >
           Edit
-        </button>
-      </form>
+        </Button>
+      </Form>
     </div>
   );
 }
