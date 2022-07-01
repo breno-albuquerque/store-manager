@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import {
   Container, Nav, Navbar,
@@ -56,5 +57,9 @@ function Navigation({ location }) {
     </Navbar>
   );
 }
+
+Navigation.propTypes = {
+  location: PropTypes.string.isRequired,
+};
 
 export default Navigation;

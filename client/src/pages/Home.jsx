@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-/* import { Table } from 'react-bootstrap'; */
 import styled, { ThemeProvider } from 'styled-components';
 import Navigation from '../components/Navigation';
 import theme from '../Theme';
