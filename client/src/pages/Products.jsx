@@ -134,7 +134,6 @@ function Products() {
           <Title>Add product</Title>
           <Form.Group
             className="mb-3"
-            controlId="formBasicEmail"
           >
             <Form.Label className="text-light">Product Name</Form.Label>
             <Form.Control
@@ -142,14 +141,12 @@ function Products() {
               name="name"
               onChange={handleAddChange}
               value={addProduct.name}
-              id="product-name"
               type="text"
             />
           </Form.Group>
 
           <Form.Group
             className="mb-3"
-            controlId="formBasicEmail"
           >
             <Form.Label className="text-light">Product Quantity</Form.Label>
             <Form.Control
@@ -157,7 +154,6 @@ function Products() {
               name="quantity"
               onChange={handleAddChange}
               value={addProduct.quantity}
-              id="product-quantity"
               type="number"
             />
           </Form.Group>
@@ -175,7 +171,6 @@ function Products() {
 
           <Form.Group
             className="mb-3"
-            controlId="formBasicEmail"
           >
             <Form.Label className="text-light">Product</Form.Label>
             <Form.Select
@@ -194,14 +189,12 @@ function Products() {
 
           <Form.Group
             className="mb-3"
-            controlId="formBasicEmail"
           >
             <Form.Label className="text-light">New Name</Form.Label>
             <Form.Control
               onChange={handleEditChange}
               placeholder="New Name"
               name="name"
-              id="product-name"
               value={editedProduct.name}
               type="text"
             />
@@ -209,7 +202,6 @@ function Products() {
 
           <Form.Group
             className="mb-3"
-            controlId="formBasicEmail"
           >
             <Form.Label className="text-light">New Quantity</Form.Label>
             <Form.Control
@@ -217,7 +209,6 @@ function Products() {
               placeholder="New Quantity"
               value={editedProduct.quantity}
               name="quantity"
-              id="product-quantity"
               type="number"
             />
           </Form.Group>

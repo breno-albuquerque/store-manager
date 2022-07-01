@@ -165,7 +165,7 @@ function Sales() {
 
               <Form.Group
                 className="mb-3"
-                controlId="formBasicEmail"
+                key={id}
               >
                 <Form.Label className="text-left fs-5 fw-bold">{`${id} - ${name}`}</Form.Label>
 
@@ -176,7 +176,6 @@ function Sales() {
                   value={
                   prodToSale.find((e) => parseInt(e.id, 10) === parseInt(id, 10)).quantity
                 }
-                  id={`quantity-${id}`}
                   type="number"
                 />
 

@@ -174,12 +174,14 @@ function Home() {
           <tbody>
             { sales.length > 0 && sales.map((sale, index) => {
               const {
-                saleId, quantity, productName,
+                saleId, quantity, productName, productId,
               } = sale;
+
+              const key = `${saleId}${productId}`;
 
               if (index === sales.length - 1) {
                 return (
-                  <tr>
+                  <tr key={key}>
                     <IdTd last>{ saleId }</IdTd>
                     <Td>{ productName }</Td>
                     <Td>{ quantity }</Td>
@@ -188,7 +190,7 @@ function Home() {
                 );
               }
               return (
-                <tr>
+                <tr key={key}>
                   <IdTd>{ sale.saleId }</IdTd>
                   <Td>{ productName }</Td>
                   <Td>{ sale.quantity }</Td>
