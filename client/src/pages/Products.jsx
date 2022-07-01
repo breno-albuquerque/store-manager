@@ -109,7 +109,7 @@ function Products() {
       return toast(data.response.data.message);
     }
 
-    navigate('/');
+    return navigate('/');
   };
 
   const handleEditClick = async () => {
@@ -119,7 +119,7 @@ function Products() {
       return toast(data.response.data.message);
     }
 
-    navigate('/');
+    return navigate('/');
   };
 
   return (
