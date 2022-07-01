@@ -6,36 +6,36 @@ const productsService = require('../../../services/productsService');
 
 const productExample1 = {
   id: 1,
-  name: "Produto X",
-  quantity: 10
-}
+  name: 'Produto X',
+  quantity: 10,
+};
 
 const productExample2 = {
   id: 2,
-  name: "Produto Y",
-  quantity: 15
-}
+  name: 'Produto Y',
+  quantity: 15,
+};
 
 describe('Busca todos produtos no controller', () => {
   describe('Em caso de sucesso', () => {
     const response = {};
     const request = {};
-    const next = () => {}
+    const next = () => {};
 
     before(async () => {
       const serviceMock = [productExample1, productExample2];
-  
+
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns();
-      sinon.stub(productsService, 'getProducts').resolves(serviceMock)
+      sinon.stub(productsService, 'getProducts').resolves(serviceMock);
     });
-  
+
     after(async () => {
       productsService.getProducts.restore();
     });
 
     it('É chamado o status com código 200', async () => {
-      await productsController.getProducts(request, response, next)
+      await productsController.getProducts(request, response, next);
 
       expect(response.status.calledWith(200)).to.be.true;
     });
@@ -50,16 +50,16 @@ describe('Busca todos produtos no controller', () => {
 describe('Busca produto pelo id no controller', () => {
   const response = {};
   const request = {};
-  const next = () => {}
+  const next = () => {};
 
   before(async () => {
     const serviceMock = productExample1;
 
-    request.params = { id: 1 }
+    request.params = { id: 1 };
     response.status = sinon.stub().returns(response);
     response.json = sinon.stub().returns();
 
-    sinon.stub(productsService, 'getProducts').resolves(serviceMock)
+    sinon.stub(productsService, 'getProducts').resolves(serviceMock);
   });
 
   after(async () => {
@@ -83,10 +83,10 @@ describe('Busca produto pelo id no controller', () => {
 describe('Adiciona produto no controller', () => {
   const response = {};
   const request = {};
-  const next = () => {}
+  const next = () => {};
 
   before(async () => {
-    request.body = { name: 'Produto', quantity: 10 }
+    request.body = { name: 'Produto', quantity: 10 };
     response.status = sinon.stub().returns(response);
     response.json = sinon.stub().returns();
 
@@ -114,11 +114,11 @@ describe('Adiciona produto no controller', () => {
 describe('Atualiza um produto no controller', () => {
   const response = {};
   const request = {};
-  const next = () => {}
+  const next = () => {};
 
   before(async () => {
-    request.body = { name: 'Produto', quantity: 10 }
-    request.params = { id: 1 }
+    request.body = { name: 'Produto', quantity: 10 };
+    request.params = { id: 1 };
     response.status = sinon.stub().returns(response);
     response.json = sinon.stub().returns();
 
@@ -140,17 +140,17 @@ describe('Atualiza um produto no controller', () => {
       await productsController.updateProduct(request, response, next);
 
       expect(response.json.calledWith({ id: 1, name: 'novo-nome', quantity: 20 })).to.be.true;
-    })
+    });
   });
 });
 
 describe('Delete um produto no controller', () => {
   const response = {};
   const request = {};
-  const next = () => {}
+  const next = () => {};
 
   before(async () => {
-    request.params = { id: 1 }
+    request.params = { id: 1 };
     response.status = sinon.stub().returns(response);
     response.json = sinon.stub().returns();
 

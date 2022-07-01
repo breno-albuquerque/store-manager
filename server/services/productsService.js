@@ -6,10 +6,10 @@ const getProducts = async (id = null) => {
     const productArr = await productsModel.getById(id);
 
     if (productArr.length === 0) throw new MyError('Product not found', 404);
-    
+
     return productArr[0];
   }
-  
+
   const products = await productsModel.getAll();
   return products;
 };
@@ -19,7 +19,7 @@ const postProduct = async ({ name, quantity }) => {
   const exists = products.some((product) => product.name === name);
 
   if (exists) throw new MyError('Product already exists', 409);
-  
+
   const { insertId } = await productsModel.postProduct(name, quantity);
 
   return {
@@ -54,7 +54,7 @@ const updateProductBySale = async (productId, quantity, add = false) => {
   if (add) product.quantity += quantity;
   else product.quantity -= quantity;
 
-  const result = await productsModel.updateProduct(productId, product.name, product.quantity);
+  await productsModel.updateProduct(productId, product.name, product.quantity);
 };
 
 const deleteProduct = async (id) => {

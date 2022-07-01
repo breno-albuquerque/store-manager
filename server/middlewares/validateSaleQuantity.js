@@ -7,7 +7,7 @@ function validateSaleQuantity(req, _res, next) {
     if (quantity === undefined) {
       throw new MyError('"quantity" is required', 400);
     }
-    
+
     if (parseInt(quantity, 10) <= 0) {
       throw new MyError('"quantity" must be greater than or equal to 1', 422);
     }

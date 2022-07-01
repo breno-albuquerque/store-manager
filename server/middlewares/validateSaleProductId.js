@@ -6,8 +6,8 @@ function validateSaleProductId(req, _res, next) {
       if (item.productId === item2.productId && index !== index2) {
         throw new MyError('Different products must not have the same Id', 400);
       }
-    })
-  })
+    });
+  });
 
   req.body.forEach((item) => {
     const { productId } = item;

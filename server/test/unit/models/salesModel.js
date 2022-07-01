@@ -6,17 +6,17 @@ const connection = require('../../../db');
 
 const completeSale1 = {
   sale_id: 1,
-  date: "2021-09-09T04:54:29.000Z",
+  date: '2021-09-09T04:54:29.000Z',
   product_id: 1,
-  quantity: 2
-}
+  quantity: 2,
+};
 
 const completeSale2 = {
   sale_id: 1,
-  date: "2021-09-09T04:54:54.000Z",
+  date: '2021-09-09T04:54:54.000Z',
   product_id: 2,
-  quantity: 2
-}
+  quantity: 2,
+};
 
 describe('Busca todas vendas no model', () => {
   before(async () => {
@@ -47,8 +47,8 @@ describe('Busca todas vendas no model', () => {
 describe('Busca venda por Id no model', () => {
   const saleExample1 = {
     id: 1,
-    date: "2021-09-09T04:54:54.000Z"
-  }
+    date: '2021-09-09T04:54:54.000Z',
+  };
 
   before(async () => {
     const dataMock = [[saleExample1]];
@@ -81,8 +81,8 @@ describe('Busca venda/produto por Id no model', () => {
   const saleProductExample1 = {
     sale_id: 1,
     product_id: 1,
-    quantity: 5
-  }
+    quantity: 5,
+  };
 
   before(async () => {
     const dataMock = [[saleProductExample1]];
@@ -120,7 +120,7 @@ describe('Adiciona vendas no model', () => {
 
   describe('Em caso de sucesso', () => {
     it('Retorna um objeto com a chave insertId e o valor 1', async () => {
-      const result = await salesModel.postSales("2021-09-09T04:54:29.000Z")
+      const result = await salesModel.postSales('2021-09-09T04:54:29.000Z');
 
       expect(result).to.be.an('object');
       expect(result.insertId).to.equal(1);
@@ -183,7 +183,7 @@ describe('Deleta uma venda no model', () => {
       expect(result.affectedRows).to.equal(1);
     });
   });
-})
+});
 
 describe('Deleta uma venda/produto no model', () => {
   before(async () => {
@@ -202,4 +202,4 @@ describe('Deleta uma venda/produto no model', () => {
       expect(result.affectedRows).to.equal(1);
     });
   });
-})
+});

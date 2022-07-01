@@ -41,7 +41,7 @@ const updateSalesProduct = async (req, res, next) => {
 const deleteSalesProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
-    await salesService.deleteSalesProduct(parseInt(id));
+    await salesService.deleteSalesProduct(parseInt(id, 10));
     res.status(204).end();
   } catch (error) {
     next(error);

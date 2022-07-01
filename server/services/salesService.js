@@ -9,21 +9,23 @@ function formatSales(sale) {
     date: item.date,
     productId: item.product_id,
     quantity: item.quantity,
-    productName: item.name
+    productName: item.name,
   }));
 }
 
 const verifyProductId = (products, sale) => {
-  const currProduct = products.find((product) => parseInt(product.id) === parseInt(sale.productId));
-  
+  const currProduct = products.find((product) => (
+    parseInt(product.id, 10) === parseInt(sale.productId, 10)));
+
   if (currProduct === undefined) {
     throw new MyError('The product(s) is not available');
   }
-}
+};
 
 function verifyProductQuantity(products, sale) {
-  const currProduct = products.find((product) => parseInt(product.id) === parseInt(sale.productId));
-  
+  const currProduct = products.find((product) => (
+    parseInt(product.id, 10) === parseInt(sale.productId, 10)));
+
   if (currProduct.quantity < sale.quantity) {
     throw new MyError('Such amount is not permitted to sell', 422);
   }
@@ -61,17 +63,17 @@ const postSales = async (saleArr) => {
 
   const { insertId } = await salesModel.postSales(date);
 
-  const sPromise = []
+  const sPromise = [];
   saleArr.forEach((e) => {
     sPromise.push(salesModel.postSalesProduct(e.productId, insertId, e.quantity));
   });
-  await Promise.all(sPromise)
+  await Promise.all(sPromise);
 
-  const pPromise = []
+  const pPromise = [];
   saleArr.forEach(async (e) => {
     pPromise.push(productService.updateProductBySale(e.productId, e.quantity));
   });
-  await Promise.all(pPromise)
+  await Promise.all(pPromise);
 
   return {
     id: insertId,
@@ -81,8 +83,9 @@ const postSales = async (saleArr) => {
 
 const updateSalesProduct = async (id, [{ productId, quantity }]) => {
   const prevSale = await getSaleById(id);
-  const prevProductData = prevSale.find((item) => parseInt(item.productId) === parseInt(productId));
-  
+  const prevProductData = prevSale.find((item) => (
+    parseInt(item.productId, 10) === parseInt(productId, 10)));
+
   const prevQuant = prevProductData.quantity;
   const quantDiff = prevQuant - quantity;
 
@@ -108,9 +111,9 @@ const deleteSalesProduct = async (id) => {
   sales.forEach(async (sale) => {
     await productService.updateProductBySale(sale.productId, sale.quantity, true);
   });
-  
+
   const result = await salesModel.deleteSale(id);
-  
+
   await salesModel.deleteSalesProduct(id);
 
   return result;

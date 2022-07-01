@@ -6,15 +6,15 @@ const connection = require('../../../db');
 
 const productExample1 = {
   id: 1,
-  name: "Produto X",
-  quantity: 10
-}
+  name: 'Produto X',
+  quantity: 10,
+};
 
 const productExample2 = {
   id: 2,
-  name: "Produto Y",
-  quantity: 15
-}
+  name: 'Produto Y',
+  quantity: 15,
+};
 
 describe('Busca todos produtos no model', () => {
   before(async () => {
@@ -119,10 +119,10 @@ describe('Deleta um produto no model', () => {
   describe('Em caso de sucesso', () => {
     before(async () => {
       const dataMock = [{ affectedRows: 1 }];
-  
+
       sinon.stub(connection, 'execute').resolves(dataMock);
     });
-  
+
     after(async () => {
       connection.execute.restore();
     });
@@ -134,14 +134,14 @@ describe('Deleta um produto no model', () => {
       expect(result.affectedRows).to.equal(1);
     });
   });
-  
+
   describe('Em caso de id inválido', () => {
     before(async () => {
       const dataMock = [{ affectedRows: 0 }];
-  
+
       sinon.stub(connection, 'execute').resolves(dataMock);
     });
-  
+
     after(async () => {
       connection.execute.restore();
     });
@@ -152,5 +152,5 @@ describe('Deleta um produto no model', () => {
       expect(result).to.be.an('object');
       expect(result.affectedRows).to.equal(0);
     });
-  })
-})
+  });
+});

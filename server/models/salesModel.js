@@ -10,7 +10,6 @@ const getAllSales = async () => {
   ON p.id = sl.product_id
   `;
   const [result] = await connection.execute(query);
-  console.log(result)
   return result;
 };
 

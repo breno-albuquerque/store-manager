@@ -6,37 +6,37 @@ const salesService = require('../../../services/salesService');
 
 const response = {};
 const request = {};
-const next = () => {}
+const next = () => {};
 
 const completeSale = {
   saleId: 1,
-  date: "2021-09-09T04:54:29.000Z",
+  date: '2021-09-09T04:54:29.000Z',
   productId: 1,
-  quantity: 2
-}
+  quantity: 2,
+};
 
 const salesProductExample = {
-  date: "2021-09-09T04:54:29.000Z",
+  date: '2021-09-09T04:54:29.000Z',
   productId: 1,
-  quantity: 2
-}
+  quantity: 2,
+};
 
 describe('Busca todas vendas no controller', () => {
   describe('Em caso de sucesso', () => {
     before(async () => {
       const serviceMock = [completeSale];
-  
+
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns();
-      sinon.stub(salesService, 'getSales').resolves(serviceMock)
+      sinon.stub(salesService, 'getSales').resolves(serviceMock);
     });
-  
+
     after(async () => {
       salesService.getSales.restore();
     });
 
     it('É chamado o status com código 200', async () => {
-      await salesController.getSales(request, response, next)
+      await salesController.getSales(request, response, next);
 
       expect(response.status.calledWith(200)).to.be.true;
     });
@@ -52,11 +52,11 @@ describe('Busca venda pelo id no controller', () => {
   before(async () => {
     const serviceMock = [salesProductExample];
 
-    request.params = { id: 1 }
+    request.params = { id: 1 };
     response.status = sinon.stub().returns(response);
     response.json = sinon.stub().returns();
 
-    sinon.stub(salesService, 'getSaleById').resolves(serviceMock)
+    sinon.stub(salesService, 'getSaleById').resolves(serviceMock);
   });
 
   after(async () => {
@@ -80,10 +80,10 @@ describe('Busca venda pelo id no controller', () => {
 describe('Adiciona venda no controller', () => {
   const response = {};
   const request = {};
-  const next = () => {}
+  const next = () => {};
 
   before(async () => {
-    request.body =[ { productId: 1, quantity: 3 } ];
+    request.body = [{ productId: 1, quantity: 3 }];
     response.status = sinon.stub().returns(response);
     response.json = sinon.stub().returns();
 
@@ -106,11 +106,11 @@ describe('Adiciona venda no controller', () => {
 describe('Atualiza venda no controller', () => {
   const response = {};
   const request = {};
-  const next = () => {}
+  const next = () => {};
 
   before(async () => {
-    request.body =[ { productId: 1, quantity: 3 } ];
-    request.params = { id: 1 }
+    request.body = [{ productId: 1, quantity: 3 }];
+    request.params = { id: 1 };
     response.status = sinon.stub().returns(response);
     response.json = sinon.stub().returns();
 
@@ -133,10 +133,10 @@ describe('Atualiza venda no controller', () => {
 describe('Atualiza venda no controller', () => {
   const response = {};
   const request = {};
-  const next = () => {}
+  const next = () => {};
 
   before(async () => {
-    request.params = { id: 1 }
+    request.params = { id: 1 };
     response.status = sinon.stub().returns(response);
     response.json = sinon.stub().returns();
 
