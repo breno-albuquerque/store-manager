@@ -18,8 +18,6 @@ const Container = styled.div`
   margin: 0 auto;
   max-width: 992px;
   font-family: ${(p) => p.theme.font};
-
-
 `;
 
 const Table = styled.table`
@@ -80,7 +78,7 @@ const IdTd = styled.td`
   border-collapse: collapse;
   background-color: ${(props) => props.theme.light};
   width: 36px;
-  border-top: 1px solid black;
+  border-top: ${(props) => props.sale && '1px solid black'};
   vertical-align: middle;
 
   @media(min-width: 992px) {

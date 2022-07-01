@@ -18,7 +18,7 @@ const Container = styled.div`
 `;
 
 const RegisterButton = styled.button`
-    border-radius: 5px;
+  border-radius: 5px;
   border: none;
   padding: 12px;
   font-size: 20px;
@@ -32,7 +32,7 @@ const RegisterButton = styled.button`
 
   &:hover {
       transform: scale(1.05);
-    }
+  }
 `;
 
 const Button = styled.button`
@@ -46,6 +46,7 @@ const Button = styled.button`
 
   transition: all 0.3s;
   font-size: 20px;
+  
   cursor: pointer;
   
   &:hover {
