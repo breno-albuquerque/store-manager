@@ -62,6 +62,8 @@ const Td = styled.td`
   padding: 8px;
   color: ${(props) => props.theme.alt};
   font-family: ${(props) => props.delete && 'Material Icons'};
+  border-top: ${(props) => props.sale && '1px solid black'};
+  vertical-align: middle;
 
   @media(min-width: 992px) {
     padding: 12px;
@@ -75,9 +77,11 @@ const Td = styled.td`
 `;
 
 const IdTd = styled.td`
+  border-collapse: collapse;
   background-color: ${(props) => props.theme.light};
-  border-bottom-left-radius: ${(props) => props.last && '5px'};
   width: 36px;
+  border-top: 1px solid black;
+  vertical-align: middle;
 
   @media(min-width: 992px) {
     width: 44px;
@@ -121,6 +125,16 @@ function Home() {
     const data = await getSales();
     setSales(data);
   }
+  const salesId = sales.map((sale) => sale.saleId);
+  let uniqueIds = [...new Set(salesId)];
+
+  const isFirst = (saleId) => {
+    if (uniqueIds.some((id) => id === saleId)) {
+      uniqueIds = uniqueIds.filter((id) => id !== saleId);
+      return true;
+    }
+    return false;
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -143,7 +157,7 @@ function Home() {
               if (index === products.length - 1) {
                 return (
                   <tr key={id}>
-                    <IdTd last>{ id }</IdTd>
+                    <IdTd>{ id }</IdTd>
                     <Td>{ name }</Td>
                     <Td>{ quantity }</Td>
                   </tr>
@@ -172,29 +186,47 @@ function Home() {
             </tr>
           </thead>
           <tbody>
-            { sales.length > 0 && sales.map((sale, index) => {
+            { sales && sales.map((sale) => {
               const {
                 saleId, quantity, productName, productId,
               } = sale;
 
-              const key = `${saleId}${productId}`;
+              const rowSpan = sales.reduce((acc, curr) => {
+                if (saleId === curr.saleId) {
+                  return acc + 1;
+                }
+                return acc;
+              }, 0);
 
-              if (index === sales.length - 1) {
+              const key = `${saleId}${productId}`;
+              const isFirstReturn = isFirst(saleId);
+
+              if (isFirstReturn) {
                 return (
                   <tr key={key}>
-                    <IdTd last>{ saleId }</IdTd>
-                    <Td>{ productName }</Td>
-                    <Td>{ quantity }</Td>
-                    <Td delete onClick={() => handleDelete(saleId)}>delete</Td>
+                    <IdTd
+                      sale
+                      rowSpan={rowSpan}
+                    >
+                      { sale.saleId }
+                    </IdTd>
+                    <Td sale>{ productName }</Td>
+                    <Td sale>{ quantity }</Td>
+                    <Td
+                      sale
+                      rowSpan={rowSpan}
+                      delete
+                      onClick={() => handleDelete(saleId)}
+                    >
+                      delete
+                    </Td>
                   </tr>
                 );
               }
               return (
                 <tr key={key}>
-                  <IdTd>{ sale.saleId }</IdTd>
                   <Td>{ productName }</Td>
-                  <Td>{ sale.quantity }</Td>
-                  <Td delete onClick={() => handleDelete(saleId)}>delete</Td>
+                  <Td>{ quantity }</Td>
                 </tr>
               );
             }) }
