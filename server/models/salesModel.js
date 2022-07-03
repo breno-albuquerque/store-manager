@@ -2,7 +2,7 @@ const connection = require('../db');
 require('dotenv').config();
 
 const getAllSales = async () => {
-  const query = 'SELECT sl.quantity, s.date, sl.`sale_id`, sl.`product_id`, p.name FROM' + process.env.MYSQL_DATABASE + '.`sales_products` AS sl INNER JOIN sales AS s ON s.id = sl.`sale_id` INNER JOIN products AS p ON p.id = sl.product_id';
+  const query = 'SELECT sl.quantity, s.date, sl.`sale_id`, sl.`product_id`, p.name FROM' + process.env.MYSQL_DATABASE + '.`sales_products` AS sl INNER JOIN sales AS s ON s.id = sl.`sale_id` INNER JOIN products AS p ON p.id = sl.`product_id`';
   const [result] = await connection.execute(query);
   return result;
 };
