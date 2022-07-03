@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Simple CRUD to sales and products",
   "main": "index.js",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "start": "node app.js",
     "debug": "nodemon app.js",
