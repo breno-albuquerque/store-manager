@@ -1,27 +1,74 @@
-# What store-manager-back-end
+# Store Manager
 
-- It is a Node.js Express API to manager products stocks and sells
+It's a simple product and sales manager !
 
-## Requirements:
+## Links:
 
-- NodeJS LTS (16)
-- MySQL (DataBase)
+- Deploy:
+- Demo: https://www.youtube.com/watch?v=UI9-NEQ-0os
 
-### Install and Run:
+## Features:
 
-- ```git clone git@github.com:breno-albuquerque/store-manager-back-end.git```
-- ```cd store-manager-back-end```
-- ```npm install```
-- ```npm start```
+##### Register a product:
+  * Set the product's name
+  * Set the quantity available in the inventory
+  * The product will be properly registered in the table
 
-### Main tech stack:
+##### Edit a product:
+  * Choose the product you want to edit
+  * Set the new name and the new quantity
+  * The product's changes will be properly registered in the table
+
+##### Register a sale:
+  * Set the quantity of each product that were sold
+  * Include them in the sale and register it
+  * The sale will be properly registered in the table
+  * The product(s) quantity will be properly updated in the table
+
+##### Delete a sale:
+  * In the table, click the delete symbol
+  * The whole sale will be deleted
+  * The product(s) quantity will be properly updated in the table
+
+## Main tech stack:
 
 - Node.js
+- React.js
 - Express
 - MySQL
-- JavaScript
-- Mocha / Jest / Sinon
+- Mocha / Chai / Sinon
 
-#### Trybe:
+## Running it localy:
 
-- This project was devoloped while I was studying the Back-End course of [Trybe](https://www.betrybe.com/), with the goal to improve and consolidate Node.js and API development skills.
+#### Requirements:
+
+- NodeJS (>16)
+- MySQL
+
+##### Clone Repository
+
+```
+git clone git@github.com:breno-albuquerque/store-manager.git
+cd store-manager
+```
+
+##### Set the Back-end environment variables
+
+- Change the .env.example file name to .env
+- Type your own data base credentials
+
+##### Install and Run the Node.js API
+
+```
+cd server
+npm install
+npm start
+```
+
+##### Install and Run the React Front-end
+
+```
+cd client
+npm install
+npm start
+```
