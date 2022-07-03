@@ -91,9 +91,8 @@ function Products() {
   const handleEditChange = ({ target }) => {
     const { name, value } = target;
 
-    const id = value.substring(0, value.indexOf(' '));
-
     if (name === 'id') {
+      const { id } = products.find((product) => product.name === value);
       setSelectedEdit(value);
       setEditedProduct((prev) => ({
         ...prev,
@@ -190,7 +189,7 @@ function Products() {
             >
               { products.length > 0 && products.map((product) => (
                 <option key={product.id}>
-                  {`${product.id} - ${product.name}`}
+                  {product.name}
                 </option>
               )) }
             </Form.Select>
