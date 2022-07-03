@@ -173,6 +173,7 @@ function Sales() {
                 <Form.Label className="text-left fs-5 fw-bold">{`${id} - ${name}`}</Form.Label>
 
                 <Form.Control
+                  autoComplete="off"
                   name={id}
                   placeholder="Quantity"
                   onChange={handleQuantityChange}

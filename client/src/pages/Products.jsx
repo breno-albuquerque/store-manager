@@ -137,6 +137,7 @@ function Products() {
           >
             <Form.Label className="text-light">Product Name</Form.Label>
             <Form.Control
+              autoComplete="off"
               placeholder="Name"
               name="name"
               onChange={handleAddChange}
@@ -150,6 +151,7 @@ function Products() {
           >
             <Form.Label className="text-light">Product Quantity</Form.Label>
             <Form.Control
+              autoComplete="off"
               placeholder="Quantity"
               name="quantity"
               onChange={handleAddChange}
@@ -192,6 +194,7 @@ function Products() {
           >
             <Form.Label className="text-light">New Name</Form.Label>
             <Form.Control
+              autoComplete="off"
               onChange={handleEditChange}
               placeholder="New Name"
               name="name"
@@ -205,6 +208,7 @@ function Products() {
           >
             <Form.Label className="text-light">New Quantity</Form.Label>
             <Form.Control
+              autoComplete="off"
               onChange={handleEditChange}
               placeholder="New Quantity"
               value={editedProduct.quantity}
