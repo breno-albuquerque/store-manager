@@ -92,7 +92,7 @@ function Products() {
       setSelectedEdit(value);
       setEditedProduct((prev) => ({
         ...prev,
-        id: parseInt(id),
+        id: parseInt(id, 10),
       }));
 
       return;
