@@ -60,7 +60,7 @@ function Products() {
 
   const [selectedEdit, setSelectedEdit] = useState('');
   const [editedProduct, setEditedProduct] = useState({
-    id: 1,
+    id: '',
     name: '',
     quantity: '',
   });
@@ -69,6 +69,11 @@ function Products() {
     const fetchProducts = async () => {
       const data = await getProducts();
       setProducts(data);
+      setEditedProduct({
+        id: data[0].id,
+        name: '',
+        quantity: '',
+      });
     };
 
     fetchProducts();
