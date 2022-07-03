@@ -4,7 +4,7 @@ It's a simple product and sales manager !
 
 ## Links:
 
-- Deploy:
+- Deploy: https://store-manager-app.netlify.app
 - Demo: https://www.youtube.com/watch?v=UI9-NEQ-0os
 
 ## Features:
