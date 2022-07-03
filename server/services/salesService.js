@@ -5,9 +5,9 @@ const productService = require('./productsService');
 
 function formatSales(sale) {
   return sale.map((item) => ({
-    saleId: item.sale_id,
+    saleId: item.saleId,
     date: item.date,
-    productId: item.product_id,
+    productId: item.productId,
     quantity: item.quantity,
     productName: item.name,
   }));
@@ -46,7 +46,7 @@ const getSaleById = async (id) => {
 
   const sales = salesProducts.map((item) => ({
     date: sale[0].date,
-    productId: item.product_id,
+    productId: item.productId,
     quantity: item.quantity,
   }));
 

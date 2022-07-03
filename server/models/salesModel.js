@@ -2,12 +2,12 @@ const connection = require('../db');
 
 const getAllSales = async () => {
   const query = `
-  SELECT sl.quantity, s.date, sl.sale_id, sl.product_id, p.name
-  FROM StoreManager.sales_products AS sl
+  SELECT sl.quantity, s.date, sl.saleId, sl.productId, p.name
+  FROM StoreManager.salesProducts AS sl
   INNER JOIN sales AS s
-  ON s.id = sl.sale_id
+  ON s.id = sl.saleId
   INNER JOIN products AS p
-  ON p.id = sl.product_id
+  ON p.id = sl.productId
   `;
   const [result] = await connection.execute(query);
   return result;
@@ -20,7 +20,7 @@ const getSaleById = async (id) => {
 };
 
 const getSalesProduct = async (id) => {
-  const query = 'SELECT * FROM StoreManager.sales_products WHERE sale_id = ?';
+  const query = 'SELECT * FROM StoreManager.salesProducts WHERE saleId = ?';
   const [result] = await connection.execute(query, [id]);
   return result;
 };
@@ -32,15 +32,15 @@ const postSales = async (date) => {
 };
 
 const postSalesProduct = async (productId, saleId, quantity) => {
-  const query = `INSERT INTO StoreManager.sales_products (product_id, sale_id, quantity) 
+  const query = `INSERT INTO StoreManager.salesProducts (productId, saleId, quantity) 
   VALUES (?, ?, ?)`;
   const [result] = await connection.execute(query, [productId, saleId, quantity]);
   return result;
 };
 
 const updateSalesProduct = async (saleId, productId, quantity) => {
-  const query = `UPDATE StoreManager.sales_products SET product_id=?, quantity=?
-  WHERE sale_id=? AND product_id=?`;
+  const query = `UPDATE StoreManager.salesProducts SET productId=?, quantity=?
+  WHERE saleId=? AND productId=?`;
   const [result] = await connection.execute(query, [productId, quantity, saleId, productId]);
 
   return result;
@@ -53,7 +53,7 @@ const deleteSale = async (id) => {
 };
 
 const deleteSalesProduct = async (id) => {
-  const query = 'DELETE FROM StoreManager.sales_products WHERE sale_id = ?';
+  const query = 'DELETE FROM StoreManager.salesProducts WHERE saleId = ?';
   const [result] = await connection.execute(query, [id]);
   return result;
 };
