@@ -104,6 +104,8 @@ function Home() {
       const data = await getSales();
 
       if (data.code !== 'ERR_NETWORK') {
+        data.sort((a, b) => a.saleId - b.saleId);
+
         setSales(data);
       }
     };
@@ -125,6 +127,7 @@ function Home() {
   async function handleDelete(id) {
     await deleteSale(id);
     const data = await getSales();
+    data.sort((a, b) => a.saleId - b.saleId);
     setSales(data);
   }
 
@@ -200,6 +203,8 @@ function Home() {
                 }
                 return acc;
               }, 0);
+
+              console.log(saleId);
 
               const key = `${saleId}${productId}`;
               const isFirstReturn = isFirst(saleId);
