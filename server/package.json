@@ -4,7 +4,8 @@
   "description": "Simple CRUD to sales and products",
   "main": "index.js",
   "engines": {
-    "node": "16.x"
+    "node": "16.x",
+    "npm": "8.3.1"
   },
   "scripts": {
     "start": "node app.js",
