@@ -62,14 +62,14 @@ const Td = styled.td`
   border-top: ${(props) => props.sale && '1px solid black'};
   vertical-align: middle;
 
+  &:hover {
+    cursor: ${(props) => props.delete && 'pointer'};
+    transform: ${(props) => props.delete && 'scale(1.1)'};
+    color: ${(props) => props.delete && props.theme.light};
+  }
   @media(min-width: 992px) {
     padding: 12px;
 
-    &:hover {
-      cursor: ${(props) => props.delete && 'pointer'};
-      transform: ${(props) => props.delete && 'scale(1.1)'};
-      color: ${(props) => props.delete && props.theme.light};
-    }
   }
 `;
 
