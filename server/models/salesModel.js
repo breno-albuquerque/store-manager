@@ -4,7 +4,7 @@ require('dotenv').config();
 const getAllSales = async () => {
   const query = `
   SELECT sl.quantity, s.date, sl.saleId, sl.productId, p.name
-  FROM StoreManager.salesProducts AS sl
+  FROM ${process.env.MYSQL_DATABASE}.salesProducts AS sl
   INNER JOIN sales AS s
   ON s.id = sl.saleId
   INNER JOIN products AS p
