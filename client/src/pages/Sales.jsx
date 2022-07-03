@@ -83,8 +83,10 @@ function Sales() {
   useEffect(() => {
     const fetchProducts = async () => {
       const data = await getProducts();
-      setProducts(data);
-      setToSale(data);
+      if (data.code !== 'ERR_NETWORK') {
+        setProducts(data);
+        setToSale(data);
+      }
     };
 
     fetchProducts();

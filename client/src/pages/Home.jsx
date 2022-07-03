@@ -102,7 +102,10 @@ function Home() {
   useEffect(() => {
     const fetchSales = async () => {
       const data = await getSales();
-      setSales(data);
+
+      if (data.code !== 'ERR_NETWORK') {
+        setSales(data);
+      }
     };
 
     fetchSales();
@@ -111,7 +114,9 @@ function Home() {
   useEffect(() => {
     const fetchProducts = async () => {
       const data = await getProducts();
-      setProducts(data);
+      if (data.code !== 'ERR_NETWORK') {
+        setProducts(data);
+      }
     };
 
     fetchProducts();
@@ -122,6 +127,7 @@ function Home() {
     const data = await getSales();
     setSales(data);
   }
+
   const salesId = sales.map((sale) => sale.saleId);
   let uniqueIds = [...new Set(salesId)];
 
