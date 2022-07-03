@@ -86,11 +86,13 @@ function Products() {
   const handleEditChange = ({ target }) => {
     const { name, value } = target;
 
+    const id = value.substring(0, value.indexOf(' '));
+
     if (name === 'id') {
       setSelectedEdit(value);
       setEditedProduct((prev) => ({
         ...prev,
-        id: parseInt(value[0], 10),
+        id: parseInt(id),
       }));
 
       return;
