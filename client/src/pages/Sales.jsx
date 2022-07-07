@@ -6,6 +6,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import Navigation from '../components/Navigation';
 import { getProducts, postSale } from '../services/requests';
 import theme from '../Theme';
+import Load from '../components/Load';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -70,7 +71,7 @@ const Title = styled.h2`
 
 function Sales() {
   const navigate = useNavigate();
-
+  const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const [prodToSale, setProdToSale] = useState([]);
   const [sale, setSale] = useState([]);
@@ -140,15 +141,18 @@ function Sales() {
       productId: item.id,
       quantity: item.quantity,
     }));
+    setIsLoading(true);
     const data = await postSale(saleToAdd);
 
     if (data.code === 'ERR_BAD_REQUEST') {
+      setIsLoading(false);
       toast(data.response.data.message);
       setToSale(products);
       setSale([]);
       return;
     }
 
+    setIsLoading(false);
     navigate('/');
   };
 
@@ -159,8 +163,11 @@ function Sales() {
 
         <Toaster />
 
-        <Title>Add Sale</Title>
+        { isLoading && <Load /> }
 
+        {!isLoading && <Title>Add Sale</Title>}
+
+        { !isLoading && (
         <Box>
           { products && products.map((product) => {
             const { id, name } = product;
@@ -202,6 +209,8 @@ function Sales() {
             Register Sale
           </RegisterButton>
         </Box>
+        )}
+
       </Container>
 
     </ThemeProvider>

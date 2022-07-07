@@ -11,7 +11,7 @@ const rotate = keyframes`
 `;
 
 const Container = styled.div`
-  color: ${(props) => props.theme.back};
+  color: ${(props) => props.theme.light};
   font-weight: 900;
   height: 70px;
   display: flex;
@@ -35,7 +35,7 @@ const Circle = styled.div`
   width: 40px;
   height: 40px;
   z-index: 10;
-  border: dotted ${(props) => props.theme.light} 5px;
+  border: dotted ${(props) => props.theme.back} 5px;
 `;
 
 function Load() {

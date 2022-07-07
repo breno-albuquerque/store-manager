@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import Navigation from '../components/Navigation';
 import theme from '../Theme';
+import Load from '../components/Load';
 
 import { deleteSale, getProducts, getSales } from '../services/requests';
 
@@ -96,11 +97,13 @@ const IdTh = styled.th`
 `;
 
 function Home() {
+  const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const [sales, setSales] = useState([]);
 
   useEffect(() => {
     const fetchSales = async () => {
+      setIsLoading(true);
       const data = await getSales();
 
       if (data.code !== 'ERR_NETWORK') {
@@ -108,6 +111,7 @@ function Home() {
 
         setSales(data);
       }
+      setIsLoading(false);
     };
 
     fetchSales();
@@ -115,16 +119,19 @@ function Home() {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setIsLoading(true);
       const data = await getProducts();
       if (data.code !== 'ERR_NETWORK') {
         setProducts(data);
       }
+      setIsLoading(false);
     };
 
     fetchProducts();
   }, [sales]);
 
   async function handleDelete(id) {
+    setIsLoading(true);
     await deleteSale(id);
     const data = await getSales();
     data.sort((a, b) => a.saleId - b.saleId);
@@ -147,8 +154,11 @@ function Home() {
       <Navigation location="home" />
       <Container>
 
-        <Title>Product Stock</Title>
+        {isLoading && <Load />}
 
+        { !isLoading && <Title>Product Stock</Title>}
+
+        {!isLoading && (
         <Table>
           <thead>
             <tr>
@@ -179,9 +189,11 @@ function Home() {
             }) }
           </tbody>
         </Table>
+        )}
 
-        <Title>Sales Logs</Title>
+        {!isLoading && <Title>Sales Logs</Title>}
 
+        {!isLoading && (
         <Table>
           <thead>
             <tr>
@@ -203,8 +215,6 @@ function Home() {
                 }
                 return acc;
               }, 0);
-
-              console.log(saleId);
 
               const key = `${saleId}${productId}`;
               const isFirstReturn = isFirst(saleId);
@@ -240,6 +250,8 @@ function Home() {
             }) }
           </tbody>
         </Table>
+        )}
+
       </Container>
     </ThemeProvider>
   );

@@ -6,6 +6,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import Navigation from '../components/Navigation';
 import { getProducts, postProduct, updateProduct } from '../services/requests';
 import theme from '../Theme';
+import Load from '../components/Load';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -51,6 +52,7 @@ const Button = styled.button`
 
 function Products() {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [products, setProducts] = useState([]);
   const [addProduct, setAddProduct] = useState({
@@ -109,22 +111,28 @@ function Products() {
   };
 
   const handleAddClick = async () => {
+    setIsLoading(true);
     const data = await postProduct(addProduct);
 
     if (data.code === 'ERR_BAD_REQUEST') {
+      setIsLoading(false);
       return toast(data.response.data.message);
     }
 
+    setIsLoading(false);
     return navigate('/');
   };
 
   const handleEditClick = async () => {
+    setIsLoading(true);
     const data = await updateProduct(editedProduct);
 
     if (data.code === 'ERR_BAD_REQUEST') {
+      setIsLoading(false);
       return toast(data.response.data.message);
     }
 
+    setIsLoading(false);
     return navigate('/');
   };
 
@@ -133,9 +141,11 @@ function Products() {
 
       <Navigation location="products" />
       <Container>
-
         <Toaster />
 
+        { isLoading && <Load /> }
+
+        { !isLoading && (
         <Form className="d-flex flex-column">
           <Title>Add product</Title>
           <Form.Group
@@ -173,7 +183,10 @@ function Products() {
             Add
           </Button>
         </Form>
+        )}
 
+        {!isLoading
+        && (
         <Form className="d-flex flex-column">
           <Title>Edit product</Title>
 
@@ -230,6 +243,8 @@ function Products() {
             Edit
           </Button>
         </Form>
+        )}
+
       </Container>
     </ThemeProvider>
   );
